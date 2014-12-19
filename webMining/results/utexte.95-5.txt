@@ -1,0 +1,24 @@
+
+de : 3
+formul : 1
+est : 1
+dan : 1
+du : 1
+championnat : 1
+katayam : 2
+quatr : 1
+ukyo : 2
+pend : 1
+pilot : 1
+prochain : 1
+mond : 1
+an : 1
+une : 1
+equipi : 1
+trente-six : 1
+le : 3
+minard : 1
+japon : 1
+l' : 1
+derni : 1
+tyrrel : 1
