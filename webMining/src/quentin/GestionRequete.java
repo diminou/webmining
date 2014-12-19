@@ -55,11 +55,11 @@ public class GestionRequete {
 	
 		TreeTaggerWrapper<String> tt = new TreeTaggerWrapper<String>();
 		String res = "";
-//		try {
-//			tt.setModel(model);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			tt.setModel("fichierPartage/french-utf8.par");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 //		
 //		try {
 //			tt.setModel("$HOME/ML/WebMining/TT/lib/french-utf8.par");
