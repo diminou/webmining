@@ -37,14 +37,22 @@ public class ConfigReader {
 		super();
 		ArrayList<String> listConfig = readConfig(configPath);
 
-		this.maxTerms = Integer.parseInt(listConfig.get(0));
+		this.setMaxTerms(Integer.parseInt(listConfig.get(0)));
 	}
 
 	public ConfigReader() throws IOException {
 		super();
 		ArrayList<String> listConfig = readConfig("./config");
 
-		this.maxTerms = Integer.parseInt(listConfig.get(0));
+		this.setMaxTerms(Integer.parseInt(listConfig.get(0)));
+	}
+
+	public Integer getMaxTerms() {
+		return maxTerms;
+	}
+
+	private void setMaxTerms(Integer maxTerms) {
+		this.maxTerms = maxTerms;
 	}
 
 }
