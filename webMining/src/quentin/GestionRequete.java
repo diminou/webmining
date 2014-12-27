@@ -1,6 +1,9 @@
 package quentin;
 
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,20 @@ public class GestionRequete {
 			retour.add(s);
 		}
 		return retour;
+	}
+	
+	
+	/**
+	 * 
+	 * @param listeString liste de string à concaténer
+	 * @return Un String contenant la concaténation de ListeString
+	 */
+	public String ListeToString(List<String> listeString){
+		String result = "";	
+		for(String s :listeString){
+			result = result + " " + s;
+		}
+		return result;
 	}
 	
 	
@@ -91,18 +108,40 @@ public class GestionRequete {
 	 * @param requete: Mots de la requete de l'utilisateur
 	 * @return la liste stematisée de requeteSplit
 	 */
-	public List<String> requeteStem(String requete){
-//		List<String> listeStem = new ArrayList<String>();
-		//TODO
-	
-		ArrayList<String> words = (new FrenchStemmer()).normalize(requete);
+	public List<String> requeteStem(String requete) throws IOException {
 		
-		return words;	
+			// on créé un fichier temporaire pour le stematiser (pour pouvoir utiliser "new FrenchStemmer()).normalize(fichierTempo);")
+	       String chemin = "result/tempo.txt";
+	       File fichierTempo =new File(chemin); 
+	       // listeStem la liste des mots de la requête stematisée
+	       List<String> listeStem = new ArrayList<String>();
+	       
+	       try {
+	    	   // création du fichier temporaire et d'un fileWriter dessus
+	    	   fichierTempo.createNewFile();
+	    	   FileWriter fw = new FileWriter(fichierTempo);
+	    	   try {
+	    		   // écriture de la requete de l'utilisateur dans le fichier temporaire
+	    		   fw.write(requete);
+	    		   listeStem = (new FrenchStemmer()).normalize(fichierTempo);
+	    			
+	    		   // on supprime le fichier temporaire après pour libérer la mémoire car  n'est plus utile.
+	    		   fichierTempo.delete();
+	    		   
+	    		   
+			} catch (Exception e) {
+				System.out.println("Erreur écriture fichier : " + e.getMessage());
+			}
+	    	   
+			
+		} catch (Exception e) {	
+			System.out.println("Erreur création fichier : " + e.getMessage());
+		}
+	       		//delete fichier tempo
+		
+		return listeStem;	
 	}
-	
-	
-	
-	
+
 	
 	/**
 	 * 
