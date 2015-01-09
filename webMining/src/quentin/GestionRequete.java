@@ -5,12 +5,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import tools.FrenchStemmer;
+import fileSysUtils.DataValue;
 import fileSysUtils.TreeRepresentation;
 
 
@@ -48,7 +53,7 @@ public class GestionRequete {
 	}
 	
 	
-	
+	//TODO essaie lemming infructueux
 //	/**
 //	 * 
 //	 * @param requeteSplit : Liste des mots de la requete de l'utilisateur
@@ -56,7 +61,6 @@ public class GestionRequete {
 //	 */
 //	public static List<String> requeteLemm(List<String> requeteSplit){
 //		final List<String> listeLemm = new ArrayList<String>();
-//		//TODO
 //		System.setProperty("treetagger.home", "/home/quentin/WebMining/TreeTagger");
 //		TreeTaggerWrapper<String> tt = new TreeTaggerWrapper<String>();
 //	
@@ -66,7 +70,6 @@ public class GestionRequete {
 //				String res = "";
 //				@Override
 //				public void token(String token, String pos, String lemma) {
-//					// TODO Auto-generated method stub
 //					res=lemma;
 //					System.out.println(lemma);
 //					listeLemm.add(lemma);
@@ -79,7 +82,6 @@ public class GestionRequete {
 //			liste.add("test");
 //		    tt.process(liste);
 //		} catch (Exception e) {
-//			// TODO: handle exception
 //			System.out.println("Erreur : " + e.getMessage());
 //		}
 //		
@@ -137,60 +139,136 @@ public class GestionRequete {
 	
 	}
 
-/**
- * 
- * @param A : mot 1 du digramme
- * @param B : mot 2 du digramme
- * @param root 
- * @return set des titres des documents contenant A et B
- */
-	public static Set<String> GestionDigramme(String A, String B, TreeRepresentation root){
-		// vérif arbre non nul
-		TreeRepresentation treeA = root.lookup(A);
-		Set<String> setDocA = new HashSet<String>();
-		 setDocA = treeA.getData().getDocuments();
+	/**
+	 * 
+	 * @param s : un mot de la requete
+	 * @param nomDoc : un document 
+	 * @param mapTf : la map contenant document et occurence
+	 * @return le nombre d'occurence de s dans nomDoc
+	 */
+	public static double calculOccurence(String s, String nomDoc, HashMap<String,Integer> mapTf){
+		double occurence=0;
 		
-		TreeRepresentation treeB = root.lookup(B);
-		Set<String> setDocB = new HashSet<String>();
-		setDocB = treeB.getData().getDocuments();
+//		parcours String de hashmap, quand égale à s, on retient la value associé
 		
-		Set<String> setDocAB = new HashSet<String>();
-		setDocAB= setDocA;
+		if(mapTf.containsKey(nomDoc)){
 		
-		setDocAB.retainAll(setDocB);
+		Set cles = mapTf.keySet();
+		Iterator<String> i = cles.iterator();
+		while(i.hasNext()){
+			String document = i.next();
+			if(document.equals(nomDoc)){
+				occurence = (double)mapTf.get(document); //occurence = di
+				break;
+			}
+		}			
 		
-		return setDocAB;
-		
-	}
-	
-	// listemotd'un doc 
-	
-	public static void tempo(List<String> listeMotDoc, String motA, String MotB){
-		//trouver la position du mot A, du mot B, calculer leur distance, si distance < seuil ==> stocke digramme
-		
-		
+		}else {
+			occurence=0;
+		}
+		return occurence;
 	}
 	
 	
-//TODO supprimer
-//	/**
-//	 * 
-//	 * @param listeMot liste de mot
-//	 * @return la liste de mot découlant de listeMot privé des mots non discriminant
-//	 */
-//	public List<String> listeDisciminante(List<String> listeMot){
-//		List<String> listeDisc = new ArrayList<String>();
-//		//TODO
-//		
-//		for(String m : listeMot){
-//
-////			if( m.isutile){
-////				listeDisc.add(m);
-////			}
-//		}
-//		
-//		return(listeDisc);
-//	}
+	
+	/** 
+	 * 
+	 * @param req : requete de l'utilisateur
+	 * @param nomDoc : nom du document sur lequel on calcul le score associé à la requete
+	 * @param root
+	 * @return Le score du document associé à la requete
+	 */
+	public static double calculScoreDoc(String req, String nomDoc,  TreeRepresentation root){
+		double score=0;
+		List<String> listeRequete= new ArrayList<String>();
+		listeRequete = requeteSplit(req);;
+	
+		double num=0;
+		double denom = 0;
+		List<Double> listeOccurence = new ArrayList<Double>();
+		
+		for(String s :listeRequete){
+			DataValue DV = root.lookupDv(s);
+			Set<String> setDoc = new HashSet<String>();			//set des documents contenant le mot s
+			setDoc = DV.getDocuments();
+			
+			
+			HashMap<String,Integer> mapTf = new HashMap<String,Integer>();
+			//TODO décommenter quand ben a fait le truc
+//			mapTf = DV.getStats().getTF();
+			
+			Iterator<String> iter = setDoc.iterator();
+			while(iter.hasNext()){
+				String doc = iter.next();
+				if(doc.equals(nomDoc)){
+					double di =0;
+					di= calculOccurence(s, doc, mapTf);
+					listeOccurence.add(di);
+				}
+			}
+
+		}
+		
+		for(Double d : listeOccurence){
+			num = num + d;
+			denom = denom + (d*d);
+		}
+		if(denom!=0.0){
+			score=num/denom;
+		}else {
+			score=0;
+		}
+		
+		return score;
+	}
+	
+
+	/**
+	 * 
+	 * @param req : requete complète de l'utilisateur
+	 * @param root 
+	 * @return : la map non triée contenant tous les documents associée à la requete et leur score associé.
+	 */
+	public static HashMap<String, Double> CalculAllScore(String req,  TreeRepresentation root){
+		
+		//contient tous les documents contenant au moins un mots de la requete
+		Set<String> listeAllDocReq = new HashSet<String>();
+		
+		List<String> listeRequete= new ArrayList<String>();
+		listeRequete = requeteSplit(req);
+		for(String s : listeRequete){
+			Set<String> listeDocReq = root.lookupDv(s).getDocuments();
+			listeAllDocReq.addAll(listeDocReq);
+		}
+		
+		HashMap<String, Double> HM = new HashMap<String, Double>();
+		// On calcul le score associé à chaque document
+		Iterator<String> i = listeAllDocReq.iterator();
+		while(i.hasNext()){
+			String nomDoc = i.next();
+			double score =0;
+			score =calculScoreDoc(req, nomDoc, root);
+			HM.put(nomDoc, score);			
+		}
+		
+		return HM;
+	}
+
+	/**
+	 * 
+	 * @param map : hashmap<nomDocument, score> à triée
+	 * @return treeMap donnant la map triée par ordre de score décoissant
+	 */
+	public static TreeMap<String, Double> classerDocument(HashMap<String, Double> map){
+		
+		ValueComparator comparateur = new ValueComparator(map);
+		TreeMap<String,Double> mapTriee = new TreeMap<String,Double>(comparateur);
+		
+		mapTriee.putAll(map);
+		
+		return mapTriee;
+	}
+	
 	
 	
 }
