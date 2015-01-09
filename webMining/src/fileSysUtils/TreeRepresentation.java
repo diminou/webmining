@@ -204,9 +204,15 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 	private void updateData(TreeRepresentation tr) {
 		if (this.lookup(tr.getValue()) != null) {
+			if(this.lookup(tr.getValue()).getData()!=null){
 			this.lookup(tr.getValue()).getData().update(tr.getData());
+			} else {
+				this.lookup(tr.getValue()).setData(tr.getData());
+			}
 		}
 	}
+	
+	
 	
 
 	protected void insert(TreeRepresentation tr) {
