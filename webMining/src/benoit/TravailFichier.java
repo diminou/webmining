@@ -85,7 +85,7 @@ public class TravailFichier {
 		for (final File fileEntry : lemmes.listFiles()) {
 			List<String> lemmWords;
 			try {
-				lemmWords = recuperer3eMots(fileEntry.getName());
+				lemmWords = recupererIeMots(fileEntry.getName(),3);
 				FrequencyMap lemmFm = new FrequencyMap(lemmWords);
 				listeFreqMap.add(lemmFm);
 			} catch (IOException e) {
@@ -119,7 +119,10 @@ public class TravailFichier {
 		br.close(); 
 		return text;
     }
-       
+
+
+    
+    
     /**
      * Retourne la List<String> des mots d'un folder
      * @param folderName
@@ -147,11 +150,11 @@ public class TravailFichier {
     }
     	
    /**
-    * Retourne le Set<String> des mots clés d'une List<String>
+    * Retourne la List<String> des mots clés d'une List<String>
     * @param listeMots
     * @return
     */
-    public static Set<String> setMotsCles (List<String> listeMots){
+    public static List<String> listeMotsCles (List<String> listeMots){
     	
     	Set<String> setSortie=new HashSet<String>();
     	
@@ -159,18 +162,45 @@ public class TravailFichier {
     		setSortie.add(listeMots.get(i));
     		
     	}
-    	return setSortie;
+    	List<String> listSortie=new ArrayList<String>();
+    	listSortie.addAll(setSortie);
+    	return listSortie;
     }
     
-    
+    /** Retourne la List<String> des mots cles d'un folder
+    * @param folderName
+    * @return
+    * @throws IOException
+    */
+   public static List<String> listeMotsClesFolder(String folderName) throws IOException{
+   	
+   	final File folder = new File(folderName);
+   	
+   	List<String> listeMotsClesFolder=new ArrayList<String>();
+   	Set<String> setMotsFolder=new HashSet<String>();
+   	
+   	
+   	for (final File fileEntry : folder.listFiles()) {
+
+			String filename=folderName+fileEntry.getName();
+			List<String> words = listerMots(filename);
+			
+			for (int i=0 ; i<words.size() ; i++){
+				setMotsFolder.add(words.get(i));
+				
+			}	
+   	}
+   	listeMotsClesFolder.addAll(setMotsFolder);
+   	return listeMotsClesFolder;
+   }
     
 	/**
-	 * Retourne la List<String> des 3e mots de chaque lignes d'un fichier lemmatise
+	 * Retourne la List<String> des ie mots de chaque lignes d'un fichier lemmatise
 	 * @param file
 	 * @return
 	 * @throws IOException
 	 */
-    public static ArrayList<String> recuperer3eMots(String file) throws IOException{
+    public static ArrayList<String> recupererIeMots(String file, int i) throws IOException{
     	
     	ArrayList<String> text = new ArrayList<String>();
 		//lecture du fichier texte	
@@ -180,7 +210,7 @@ public class TravailFichier {
 		String line;
 		while ((line=br.readLine())!=null){
 			if (line.split("\t").length>2){
-			String temp=line.split("\t")[2];
+			String temp=line.split("\t")[i-1];
 			text.add(temp);
 			}
 		}
@@ -189,56 +219,6 @@ public class TravailFichier {
 		
     }
         
-    /**
-	 * Retourne la List<String> des 2e mots de chaque lignes d'un fichier lemmatise
-	 * @param file
-	 * @return
-	 * @throws IOException
-	 */
-    public static ArrayList<String> recuperer2eMots(String file) throws IOException{
-    	
-    	ArrayList<String> text = new ArrayList<String>();
-		//lecture du fichier texte	
-		InputStream ips=new FileInputStream(file); 
-		InputStreamReader ipsr=new InputStreamReader(ips);
-		BufferedReader br=new BufferedReader(ipsr);
-		String line;
-		while ((line=br.readLine())!=null){
-			if (line.split("\t").length>2){
-			String temp=line.split("\t")[1];
-			text.add(temp);
-			}
-		}
-		br.close(); 
-		return text;
-		
-    }
-       
-    /**
-	 * Retourne la List<String> des 1er mots de chaque lignes d'un fichier lemmatise
-	 * @param file
-	 * @return
-	 * @throws IOException
-	 */
-    public static ArrayList<String> recuperer1erMots(String file) throws IOException{
-    	
-    	ArrayList<String> text = new ArrayList<String>();
-		//lecture du fichier texte	
-		InputStream ips=new FileInputStream(file); 
-		InputStreamReader ipsr=new InputStreamReader(ips);
-		BufferedReader br=new BufferedReader(ipsr);
-		String line;
-		while ((line=br.readLine())!=null){
-			if (line.split("\t").length>2){
-			String temp=line.split("\t")[2];
-			text.add(temp);
-			}
-		}
-		br.close(); 
-		return text;
-		
-    }
-	
 	
     
     /**
@@ -253,12 +233,10 @@ public class TravailFichier {
     	// Index des IndexMots
     	HashMap<String,IndexMot> mapIndexSortie=new HashMap<String,IndexMot>();
     	
-    	List<String> listeMotsFolder=listerMotsFolder(folderName);
-
-    	Set<String> setFolder=setMotsCles(listeMotsFolder);
-    	List<String> listeMotsClesFolder=new ArrayList<>();
-    	listeMotsClesFolder.addAll(setFolder);
+    	// Liste des mots clés du folder
+    	List<String> listeMotsClesFolder=listeMotsClesFolder(folderName);
     	
+    	// Liste des noms des fichiers du folder
         final File folder = new File(folderName);
         List<String> listeFiles=new ArrayList<String>();
         for(final File fileEntry : folder.listFiles()){
@@ -271,34 +249,71 @@ public class TravailFichier {
         	IndexMot indexMotLocal=new IndexMot(listeMotsClesFolder.get(i));
         	listeIndexSortie.add(indexMotLocal);
         	mapIndexSortie.put(listeMotsClesFolder.get(i), indexMotLocal);
-        	
         }
         
         // On parcourt tous les fichiers du folder
     	for (int i=0 ; i<listeFiles.size() ; i++) {
-    		// Liste des mots clés du file courant
-    		List<String> listMotsClesFile=listerMots(listeFiles.get(i));
+    		// Liste des "mots" et des "mots clés" du fichier courant
+    		List<String> listMotsClesFile=listeMotsCles(listerMots(listeFiles.get(i)));
+    		List<String> listMotsFile=listerMots(listeFiles.get(i));
     		
-    		// Pour un fichier, on parcourt tout ses mots clés
-    		for(int j=0 ; j<listMotsClesFile.size() ; j++){
+    		// Pour un fichier, on parcourt tous ses mots
+    		for(int j=0 ; j<listMotsFile.size() ; j++){
     			
-    			IndexMot indexMotCourant=mapIndexSortie.get(listMotsClesFile.get(j));
+    			// On récupère l'IndexMot correspondant au mot courant
+    			IndexMot indexMotCourant=mapIndexSortie.get(listMotsFile.get(j));
+    			
+    			
     			int k=0;
-    			// On parcourt tout le Set<IndexMot> pour trouver le mot clé du fileCourant
+    			// On parcourt toute la List<IndexMot> pour trouver le mot clé du fileCourant
     			while (!listeIndexSortie.get(k).getLabel().equals(indexMotCourant.getLabel())) {
     				k++;
     			}
+    			
+    			// On récupère la liste des FileNames du mot courant
     			List<String>listeFileNamesMotCourant=new ArrayList<String>();
-    					
 				listeFileNamesMotCourant.addAll(listeIndexSortie.get(k).getListFileNames());
 				
-				listeFileNamesMotCourant.add(listeFiles.get(i));
+				// On récupère le nb de files qui contiennent le mot courant
 				int nbFilesMotCourant=listeIndexSortie.get(k).getNbFiles();
-				nbFilesMotCourant++;
+				
+				// On récupère les stats du mot courant
+				StatMot statsMotCourant=listeIndexSortie.get(k).getStats();
+				
+				
+				// On vérifie que le fichier n'appartient pas à la liste des fichiers déjà rentrés avant de l'ajouter
+				boolean fileDejaRentre=false;
+				for(int l=0 ; l<listeFileNamesMotCourant.size() ; l++){
+					if(listeFileNamesMotCourant.get(l).equals(listeFiles.get(i))){
+						fileDejaRentre=true;
+					}
+				}
+				
+				// Si on n'a pas trouvé le fichier dans la liste des fichiers déjà présents
+				if(!fileDejaRentre){
+					// On ajoute le fichier à la liste et on incrémente le nb de fichier d'appartenance
+					listeFileNamesMotCourant.add(listeFiles.get(i));
+					nbFilesMotCourant++;
+					
+					// On modifie les stats associées au mot courant
+					HashMap<String,Integer> mapTfMotCourant=statsMotCourant.getMapTf();
+					mapTfMotCourant.put(listeFiles.get(i), 1);
+					statsMotCourant.setMapTf(mapTfMotCourant);
+				}
+				
+				// Si on a trouvé le fichier dans la liste des fichiers déjà présents
+				if(fileDejaRentre){
+					// On modifie les stats associées au mot courant
+					HashMap<String,Integer> mapTfMotCourant=statsMotCourant.getMapTf();
+					Integer tfMotCourant=mapTfMotCourant.get(listeFiles.get(i));
+					mapTfMotCourant.put(listeFiles.get(i), tfMotCourant+1);
+					statsMotCourant.setMapTf(mapTfMotCourant);
+				}
+
 				
 				listeIndexSortie.get(k).setListFileNames(listeFileNamesMotCourant);
 				listeIndexSortie.get(k).setNbFiles(nbFilesMotCourant);
-				
+				listeIndexSortie.get(k).setStats(statsMotCourant);
     			
     		}
     	}
