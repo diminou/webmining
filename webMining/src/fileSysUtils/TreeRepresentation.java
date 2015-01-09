@@ -197,6 +197,10 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 			}
 		}
 	}
+	
+	public DataValue lookupDv(String key){
+		return (this.lookup(key)).getData();
+	}
 
 	private void updateData(TreeRepresentation tr) {
 		if (this.lookup(tr.getValue()) != null) {
