@@ -17,16 +17,16 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 	private TreeRepresentation leftChild = null;
 	private TreeRepresentation rightChild = null;
 	private String value;
-	private String data;
+	private DataValue data;
 
-	public TreeRepresentation(String value, String data) {
+	public TreeRepresentation(String value, DataValue data) {
 		super();
 		this.data = data;
 		this.value = value;
 	}
 
 	public TreeRepresentation(TreeRepresentation parent, String value,
-			String data) {
+			DataValue data) {
 		super();
 		this.parent = parent;
 		this.value = value;
@@ -51,11 +51,11 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		this.data = tr.data;
 	}
 
-	public String getData() {
+	public DataValue getData() {
 		return this.data;
 	}
 
-	public void setData(String data) {
+	public void setData(DataValue data) {
 		this.data = data;
 	}
 
@@ -144,7 +144,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 	}
 
 	public void rotateLeft() {
-		System.err.println("rotate right");
+
 		TreeRepresentation right = this.getRightChild();
 		TreeRepresentation startNode = this.clone();
 		startNode.setRightChild(right.getLeftChild());
@@ -152,11 +152,11 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		right.setParent(startNode.getParent());
 		startNode.setParent(right);
 		this.copy(right);
-		System.err.println(this.toString());
+
 	}
 
 	public void rotateRight() {
-		System.err.println("rotate left");
+
 		TreeRepresentation left = this.getLeftChild();
 		TreeRepresentation startNode = this.clone();
 		startNode.setLeftChild(left.getRightChild());
@@ -164,7 +164,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		left.setParent(startNode.getParent());
 		startNode.setParent(left);
 		this.copy(left);
-		System.err.println(this.toString());
+
 	}
 
 	public TreeRepresentation clone() {
@@ -200,13 +200,13 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 	private void updateData(TreeRepresentation tr) {
 		if (this.lookup(tr.getValue()) != null) {
-			this.lookup(tr.getValue()).setData(tr.getData());
+			this.lookup(tr.getValue()).getData().update(tr.getData());
 		}
 	}
+	
 
 	protected void insert(TreeRepresentation tr) {
-		System.err.println("insert " + tr.getValue());
-		System.err.println("into " + this.value);
+
 		if (tr.compareTo(this) > 0) {
 			if (this.rightChild == null) {
 				this.rightChild = tr;
@@ -224,50 +224,44 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 				this.leftChild.insert(tr);
 			}
 
+		}else if(tr.compareTo(this) == 0){
+			this.updateData(tr);
 		}
 
 	}
 
 	private void rebalanceInsertion() {
-		System.err.println("rebalancing");
-		System.err.println("inserted");
-		System.err.println(this.value);
+
 		if (this.parent != null && this.parent.getParent() != null) {
 			TreeRepresentation p = this.parent;
 
-			System.err.println("p");
-			System.err.println(p.getValue() + p.balance().toString());
-
 			TreeRepresentation gp = p.getParent();
-
-			System.err.println("gp");
-			System.err.println(gp.getValue() + gp.balance().toString());
 
 			if (gp.balance() > 1) {
 				if (p.balance() > 0) {
-					System.err.println("left left");
+
 					gp.rotateRight();
 					p.rebalanceInsertion();
 				} else if (p.balance() < 0) {
-					System.err.println("left right");
+
 					p.rotateLeft();
 					gp.rotateRight();
 					p.rebalanceInsertion();
 				}
 			} else if (gp.balance() < -1) {
 				if (p.balance() > 0) {
-					System.err.println("right left");
+
 					p.rotateRight();
 					gp.rotateLeft();
 					p.rebalanceInsertion();
 				} else if (p.balance() < 0) {
-					System.err.println("right right");
+
 					gp.rotateLeft();
 					p.rebalanceInsertion();
 				}
 
 			} else {
-				System.err.println("hierarchy climb " + p.getValue());
+
 				p.rebalanceInsertion();
 			}
 
@@ -275,7 +269,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 	}
 
-	public void insert(String value, String data) {
+	public void insert(String value, DataValue data) {
 		TreeRepresentation tr = new TreeRepresentation(value, data);
 		this.insert(tr);
 	}
