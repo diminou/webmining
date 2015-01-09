@@ -33,6 +33,7 @@ public class MainForestier {
 		root.insert("apx", null);
 		root = root.root();
 		System.out.println(root.toString());
+		
 
 	}
 
