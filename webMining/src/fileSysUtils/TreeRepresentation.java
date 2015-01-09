@@ -18,22 +18,19 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 	private TreeRepresentation rightChild = null;
 	private String value;
 	private String data;
-	private Integer balance;
 
-	
-	public TreeRepresentation(String value, String data){
+	public TreeRepresentation(String value, String data) {
 		super();
 		this.data = data;
 		this.value = value;
-		this.balance = this.balance();
 	}
+
 	public TreeRepresentation(TreeRepresentation parent, String value,
 			String data) {
 		super();
 		this.parent = parent;
 		this.value = value;
 		this.data = data;
-		this.balance = this.balance();
 	}
 
 	@Override
@@ -52,7 +49,6 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		this.rightChild = tr.getRightChild();
 		this.value = tr.getValue();
 		this.data = tr.data;
-		this.balance = tr.balance;
 	}
 
 	public String getData() {
@@ -77,7 +73,6 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 	public void setLeftChild(TreeRepresentation leftChild) {
 		this.leftChild = leftChild;
-		this.balance = this.balance();
 	}
 
 	public TreeRepresentation getRightChild() {
@@ -86,7 +81,6 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 	public void setRightChild(TreeRepresentation rightChild) {
 		this.rightChild = rightChild;
-		this.balance = this.balance();
 	}
 
 	public String getValue() {
@@ -138,22 +132,19 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 	}
 
 	public Integer balance() {
-		Integer sizeLeft = new Integer(0);
-		Integer sizeRight = new Integer(0);
+		Integer heightLeft = new Integer(0);
+		Integer heightRight = new Integer(0);
 		if (this.leftChild != null) {
-			sizeLeft = this.leftChild.size();
+			heightLeft = this.leftChild.height(this.leftChild);
 		}
 		if (this.rightChild != null) {
-			sizeRight = this.rightChild.size();
+			heightRight = this.rightChild.height(this.rightChild);
 		}
-		return sizeLeft - sizeRight;
-	}
-
-	public void updateBalance() {
-		this.balance = this.balance();
+		return heightLeft - heightRight;
 	}
 
 	public void rotateLeft() {
+		System.err.println("rotate right");
 		TreeRepresentation right = this.getRightChild();
 		TreeRepresentation startNode = this.clone();
 		startNode.setRightChild(right.getLeftChild());
@@ -161,9 +152,11 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		right.setParent(startNode.getParent());
 		startNode.setParent(right);
 		this.copy(right);
+		System.err.println(this.toString());
 	}
 
 	public void rotateRight() {
+		System.err.println("rotate left");
 		TreeRepresentation left = this.getLeftChild();
 		TreeRepresentation startNode = this.clone();
 		startNode.setLeftChild(left.getRightChild());
@@ -171,6 +164,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		left.setParent(startNode.getParent());
 		startNode.setParent(left);
 		this.copy(left);
+		System.err.println(this.toString());
 	}
 
 	public TreeRepresentation clone() {
@@ -183,40 +177,124 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		this.rightChild = tr.getRightChild();
 		this.value = tr.getValue();
 		this.data = tr.getData();
-		this.balance = this.balance();
 	}
-	
-	public TreeRepresentation lookup(String value){
+
+	public TreeRepresentation lookup(String value) {
 		TreeRepresentation temp = new TreeRepresentation(value, null);
-		if(temp.compareTo(this) == 0){
+		if (temp.compareTo(this) == 0) {
 			return this;
-		} else if(temp.compareTo(this)<0){
-			if(this.getLeftChild()!=null){
+		} else if (temp.compareTo(this) < 0) {
+			if (this.getLeftChild() != null) {
 				return this.leftChild.lookup(value);
-			}else{
+			} else {
 				return null;
 			}
 		} else {
-			if(this.getRightChild()!=null){
+			if (this.getRightChild() != null) {
 				return this.rightChild.lookup(value);
-			}else{
+			} else {
 				return null;
 			}
 		}
 	}
-	
-	private void updateData(TreeRepresentation tr){
-		if (this.lookup(tr.getValue())!=null) {
+
+	private void updateData(TreeRepresentation tr) {
+		if (this.lookup(tr.getValue()) != null) {
 			this.lookup(tr.getValue()).setData(tr.getData());
 		}
 	}
-	
-	private void insert(TreeRepresentation tr){
-		
+
+	protected void insert(TreeRepresentation tr) {
+		System.err.println("insert " + tr.getValue());
+		System.err.println("into " + this.value);
+		if (tr.compareTo(this) > 0) {
+			if (this.rightChild == null) {
+				this.rightChild = tr;
+				tr.parent = this;
+				this.rightChild.rebalanceInsertion();
+			} else {
+				this.rightChild.insert(tr);
+			}
+		} else if (tr.compareTo(this) < 0) {
+			if (this.leftChild == null) {
+				this.leftChild = tr;
+				tr.parent = this;
+				this.leftChild.rebalanceInsertion();
+			} else {
+				this.leftChild.insert(tr);
+			}
+
+		}
+
 	}
-	
-	public void insert(String value, String data){
-		
+
+	private void rebalanceInsertion() {
+		System.err.println("rebalancing");
+		System.err.println("inserted");
+		System.err.println(this.value);
+		if (this.parent != null && this.parent.getParent() != null) {
+			TreeRepresentation p = this.parent;
+
+			System.err.println("p");
+			System.err.println(p.getValue() + p.balance().toString());
+
+			TreeRepresentation gp = p.getParent();
+
+			System.err.println("gp");
+			System.err.println(gp.getValue() + gp.balance().toString());
+
+			if (gp.balance() > 1) {
+				if (p.balance() > 0) {
+					System.err.println("left left");
+					gp.rotateRight();
+					p.rebalanceInsertion();
+				} else if (p.balance() < 0) {
+					System.err.println("left right");
+					p.rotateLeft();
+					gp.rotateRight();
+					p.rebalanceInsertion();
+				}
+			} else if (gp.balance() < -1) {
+				if (p.balance() > 0) {
+					System.err.println("right left");
+					p.rotateRight();
+					gp.rotateLeft();
+					p.rebalanceInsertion();
+				} else if (p.balance() < 0) {
+					System.err.println("right right");
+					gp.rotateLeft();
+					p.rebalanceInsertion();
+				}
+
+			} else {
+				System.err.println("hierarchy climb " + p.getValue());
+				p.rebalanceInsertion();
+			}
+
+		}
+
+	}
+
+	public void insert(String value, String data) {
+		TreeRepresentation tr = new TreeRepresentation(value, data);
+		this.insert(tr);
+	}
+
+	public String toString() {
+		String result = "";
+		String nl = System.lineSeparator();
+		result += this.value + nl;
+		if (this.leftChild == null) {
+			result += "leftChild : " + "null" + nl;
+		} else {
+			result += "leftChild : " + leftChild.toString() + nl;
+		}
+		if (this.rightChild == null) {
+			result += "rightChild : " + "null" + nl;
+		} else {
+			result += "rightChild : " + rightChild.toString() + nl;
+		}
+		return result;
 	}
 
 }
