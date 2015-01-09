@@ -1,14 +1,16 @@
 package benoit;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class IndexMot {
 
 	private String label;
 	private int nbFiles;
-	private List<String> listFileNames;
+	private Set<String> setFileNames;
 	private StatMot stats;
 	
 	/**
@@ -17,11 +19,11 @@ public class IndexMot {
 	 * @param nbFiles
 	 * @param listFileNames
 	 */
-	public IndexMot(String label, int nbFiles, List<String> listFileNames, StatMot stats){
+	public IndexMot(String label, int nbFiles, Set<String> setFileNames, StatMot stats){
 		super();
 		this.label=label;
 		this.nbFiles=nbFiles;
-		this.listFileNames=listFileNames;
+		this.setFileNames=setFileNames;
 		this.stats=stats;
 	}
 	
@@ -30,7 +32,7 @@ public class IndexMot {
 		super();
 		this.label="";
 		this.nbFiles=0;
-		this.listFileNames=new ArrayList<String>();
+		this.setFileNames=new HashSet<String>();
 		this.stats=new StatMot();
 	}
 	
@@ -40,7 +42,7 @@ public class IndexMot {
 	public IndexMot(String string) {
 		super();
 		this.label=string;
-		this.listFileNames=new ArrayList<String>();
+		this.setFileNames=new HashSet<String>();
 		this.stats=new StatMot();
 	}
 
@@ -67,18 +69,18 @@ public class IndexMot {
 	public void setNbFiles(int nbFiles) {
 		this.nbFiles = nbFiles;
 	}
-	public List<String> getListFileNames() {
-		return listFileNames;
+	public Set<String> getListFileNames() {
+		return setFileNames;
 	}
-	public void setListFileNames(List<String> listFileNames) {
-		this.listFileNames = listFileNames;
+	public void setListFileNames(Set<String> setFileNames) {
+		this.setFileNames = setFileNames;
 	}
 
 
 	@Override
 	public String toString() {
 		return "IndexMot [label=" + label + ", nbFiles=" + nbFiles
-				+ ", listFileNames=" + listFileNames + ", stats=" + stats + "]";
+				+ ", listFileNames=" + setFileNames + ", stats=" + stats + "]";
 	}
 
 	
