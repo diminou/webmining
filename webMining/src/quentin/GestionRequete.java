@@ -4,18 +4,14 @@ package quentin;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
-
-import org.annolab.tt4j.TokenHandler;
-import org.annolab.tt4j.TreeTaggerWrapper;
-import org.tartarus.snowball.SnowballStemmer;
+import java.util.Set;
 
 import tools.FrenchStemmer;
+import fileSysUtils.TreeRepresentation;
 
 
 
@@ -32,9 +28,9 @@ public class GestionRequete {
 		List<String> retour = new ArrayList<String>();
 		String[] split = requete.split("\\s+");
 		for(String s: split){
-			retour.add(s);
+				retour.add(s);
 		}
-		return retour;
+		return (retour);
 	}
 	
 	
@@ -141,40 +137,60 @@ public class GestionRequete {
 	
 	}
 
-	
-	/**
-	 * 
-	 * @param listeMot : Liste des mots 
-	 * @return la liste des digramme provenant de listeMot (sous la forme [mot1Digramme mot2Digramme])
-	 */
-	
-	public List<String> listeDigramme(List<String> listeMot){
-		List<String> listeDigramme = new ArrayList<String>();
-		for(int i = 0; i< listeMot.size()-1; i++){
-			listeDigramme.add(listeMot.get(i) + " " +  listeMot.get(i+1));
-		}
-		return listeDigramme; 
+/**
+ * 
+ * @param A : mot 1 du digramme
+ * @param B : mot 2 du digramme
+ * @param root 
+ * @return set des titres des documents contenant A et B
+ */
+	public static Set<String> GestionDigramme(String A, String B, TreeRepresentation root){
+		// vérif arbre non nul
+		TreeRepresentation treeA = root.lookup(A);
+		Set<String> setDocA = new HashSet<String>();
+		 setDocA = treeA.getData().getDocuments();
+		
+		TreeRepresentation treeB = root.lookup(B);
+		Set<String> setDocB = new HashSet<String>();
+		setDocB = treeB.getData().getDocuments();
+		
+		Set<String> setDocAB = new HashSet<String>();
+		setDocAB= setDocA;
+		
+		setDocAB.retainAll(setDocB);
+		
+		return setDocAB;
+		
 	}
 	
-
-	/**
-	 * 
-	 * @param listeMot liste de mot
-	 * @return la liste de mot découlant de listeMot privé des mots non discriminant
-	 */
-	public List<String> listeDisciminante(List<String> listeMot){
-		List<String> listeDisc = new ArrayList<String>();
-		//TODO
+	// listemotd'un doc 
+	
+	public static void tempo(List<String> listeMotDoc, String motA, String MotB){
+		//trouver la position du mot A, du mot B, calculer leur distance, si distance < seuil ==> stocke digramme
 		
-		for(String m : listeMot){
-
-//			if( m.isutile){
-//				listeDisc.add(m);
-//			}
-		}
 		
-		return(listeDisc);
 	}
+	
+	
+//TODO supprimer
+//	/**
+//	 * 
+//	 * @param listeMot liste de mot
+//	 * @return la liste de mot découlant de listeMot privé des mots non discriminant
+//	 */
+//	public List<String> listeDisciminante(List<String> listeMot){
+//		List<String> listeDisc = new ArrayList<String>();
+//		//TODO
+//		
+//		for(String m : listeMot){
+//
+////			if( m.isutile){
+////				listeDisc.add(m);
+////			}
+//		}
+//		
+//		return(listeDisc);
+//	}
 	
 	
 }
