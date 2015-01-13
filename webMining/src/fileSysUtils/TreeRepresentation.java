@@ -154,6 +154,9 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 		TreeRepresentation right = this.getRightChild();
 		this.setRightChild(right.getLeftChild());
+		if (this.rightChild != null) {
+			this.rightChild.setParent(this);
+		}
 		right.setLeftChild(this);
 		right.setParent(parent);
 		this.setParent(right);
@@ -163,6 +166,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		} else if (rightc) {
 			parent.setRightChild(right);
 		}
+
 	}
 
 	public void rotateRight() {
@@ -176,6 +180,9 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		}
 		TreeRepresentation left = this.getLeftChild();
 		this.setLeftChild(left.getRightChild());
+		if (this.leftChild != null) {
+			this.leftChild.setParent(this);
+		}
 		left.setRightChild(this);
 		left.setParent(parent);
 		this.setParent(left);
