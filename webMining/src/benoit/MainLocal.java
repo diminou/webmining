@@ -11,7 +11,7 @@ public class MainLocal {
     	cal.getTime();
     	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
     	System.out.println( sdf.format(cal.getTime()) );
-		System.out.println(TravailFichier.createIndexMot("newCorpus2/").size());
+		TravailFichier.createIndex("newCorpus/");
 		Calendar cal1 = Calendar.getInstance();
     	cal1.getTime();
     	SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");

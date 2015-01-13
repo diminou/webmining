@@ -400,7 +400,7 @@ public class TravailFichier {
     
     
     public static void createIndex(String folderName) throws IOException{
-    	
+    	TreeRepresentation root = new TreeRepresentation("propre", null);
     	// Liste des noms des fichiers du folder
         final File folder = new File(folderName);
         List<String> listeFiles=new ArrayList<String>();
@@ -435,11 +435,10 @@ public class TravailFichier {
     			dataValueMotCourant.setStats(statMotCourant);
     			
     			// Ajout du mot dans la base de données (si déjà présent, la méthode update de la classe sera appelée)
-    			///////////////////++++++++++++++++++++++++++++++++++//////////////////////////////////
-    			
-    			TreeRepresentation root = new TreeRepresentation("propre", null);
+
     			root.insert(labelMotCourant, dataValueMotCourant);
     			root = root.root();
+    			
     		}	
     	}
     }
