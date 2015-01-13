@@ -48,6 +48,13 @@ public class DataValue {
 	public void setStats(StatMot stats) {
 		this.stats = stats;
 	}
+	
+	
+	//Pour ne pas avoir du rouge dans le traitement des requetes
+	//FIXME
+	public Set<String> getDocuments(){
+		return new HashSet<String>();
+	}
 
 	public void update(DataValue dv){
 		// Anciennes valeurs

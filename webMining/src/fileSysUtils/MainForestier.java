@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -46,12 +47,16 @@ public class MainForestier {
 		System.out.println(root.toString());
 		
 		
-		/*ObjectMapper mapper = new ObjectMapper();
+		
+		
+		ObjectMapper mapper = new ObjectMapper();
 	 
 		try {
 	 
+			JsonNode node = mapper.valueToTree(root);
+			
 			// convert user object to json string, and save to a file
-			mapper.writeValue(new File("./index/test.json"), root);
+			//mapper.writeTree(new File("./index/test.json"), node);
 			//mapper.writeTree(new JsonGenerator, rootNode);
 	 
 			// display to console
@@ -69,7 +74,7 @@ public class MainForestier {
 	 
 			e.printStackTrace();
 	 
-		}*/
+		}
 
 	}
 
