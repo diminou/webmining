@@ -221,7 +221,7 @@ public class GestionRequete {
 			denom = denom + (d*d);
 		}
 		if(denom!=0.0){
-			score=num/denom;
+			score=num/Math.sqrt(denom);
 		}else {
 			score=0;
 		}

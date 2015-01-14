@@ -25,7 +25,7 @@ public class MainLocal {
     	//System.out.println(propre.lookup("propre"));
     	System.out.println(propre.lookupDv("propre").getStats().toString());
     	
-    	//GestionRequete.printMap(GestionRequete.classerDocument(GestionRequete.CalculAllScore("journal", propre)));
+    	GestionRequete.printMap(GestionRequete.classerDocument(GestionRequete.CalculAllScore("propre", propre)));
     	
 	}
 
