@@ -91,7 +91,7 @@ public class GestionRequete {
 	
 	
 	/**
-	 * 
+	 * Retourne la List<String> stematisée de la requête
 	 * @param requete: Mots de la requete de l'utilisateur
 	 * @return la liste stematisée de requeteSplit
 	 */
@@ -140,28 +140,30 @@ public class GestionRequete {
 	}
 
 	/**
-	 * 
+	 * Retourne le nombre d'occurence d'un mot dans un document
 	 * @param s : un mot de la requete
 	 * @param nomDoc : un document 
 	 * @param mapTf : la map contenant document et occurence
 	 * @return le nombre d'occurence de s dans nomDoc
 	 */
-	public static double calculOccurence(String s, String nomDoc, HashMap<String,Integer> mapTf){
+	public static double calculOccurence(String nomDoc, HashMap<String,Integer> mapTf){
 		double occurence=0;
 		
 //		parcours String de hashmap, quand égale à s, on retient la value associé
 		
 		if(mapTf.containsKey(nomDoc)){
 		
-		Set cles = mapTf.keySet();
-		Iterator<String> i = cles.iterator();
-		while(i.hasNext()){
-			String document = i.next();
-			if(document.equals(nomDoc)){
-				occurence = (double)mapTf.get(document); //occurence = di
-				break;
-			}
-		}			
+//		Set cles = mapTf.keySet();
+//		Iterator<String> i = cles.iterator();
+//		while(i.hasNext()){
+//			String document = i.next();
+//			if(document.equals(nomDoc)){
+//				occurence = (double)mapTf.get(document); //occurence = di
+//				break;
+//			}
+//		}	
+			
+			occurence=mapTf.get(nomDoc);
 		
 		}else {
 			occurence=0;
@@ -172,7 +174,7 @@ public class GestionRequete {
 	
 	
 	/** 
-	 * 
+	 * Retourne le score du document associé à la requête
 	 * @param req : requete de l'utilisateur
 	 * @param nomDoc : nom du document sur lequel on calcul le score associé à la requete
 	 * @param root
@@ -181,31 +183,36 @@ public class GestionRequete {
 	public static double calculScoreDoc(String req, String nomDoc,  TreeRepresentation root){
 		double score=0;
 		List<String> listeRequete= new ArrayList<String>();
-		listeRequete = requeteSplit(req);;
+		listeRequete = requeteSplit(req);
 	
 		double num=0;
 		double denom = 0;
 		List<Double> listeOccurence = new ArrayList<Double>();
 		
+		// On parcourt l'ensemble des mots de la requête
 		for(String s :listeRequete){
 			DataValue DV = root.lookupDv(s);
-			Set<String> setDoc = new HashSet<String>();			//set des documents contenant le mot s
-			setDoc = DV.getDocuments();
 			
+			Set<String> setDoc = DV.getSetFileNames();					//set des documents contenant le mot s
+			HashMap<String,Integer> mapTf = DV.getStats().getMapTf();   //map des TF
 			
-			HashMap<String,Integer> mapTf = new HashMap<String,Integer>();
-			//TODO décommenter quand ben a fait le truc
-//			mapTf = DV.getStats().getTF();
-			
-			Iterator<String> iter = setDoc.iterator();
-			while(iter.hasNext()){
-				String doc = iter.next();
-				if(doc.equals(nomDoc)){
-					double di =0;
-					di= calculOccurence(s, doc, mapTf);
-					listeOccurence.add(di);
-				}
+			// On parcourt l'ensemble des documents d'appartenance du mot de la requête à la recherche du doc d'entrée			
+			if (setDoc.contains(nomDoc)){
+				double di =0;
+				di= calculOccurence(nomDoc, mapTf);
+				listeOccurence.add(di);
+				
 			}
+			
+//			Iterator<String> iter = setDoc.iterator();
+//			while(iter.hasNext()){
+//				String doc = iter.next();
+//				if(doc.equals(nomDoc)){
+//					double di =0;
+//					di= calculOccurence(doc, mapTf);
+//					listeOccurence.add(di);
+//				}
+//			}
 
 		}
 		
@@ -224,7 +231,7 @@ public class GestionRequete {
 	
 
 	/**
-	 * 
+	 * Retourne la map non triée contenant tous les documents associée à la requete et leur score associé
 	 * @param req : requete complète de l'utilisateur
 	 * @param root 
 	 * @return : la map non triée contenant tous les documents associée à la requete et leur score associé.
@@ -237,7 +244,7 @@ public class GestionRequete {
 		List<String> listeRequete= new ArrayList<String>();
 		listeRequete = requeteSplit(req);
 		for(String s : listeRequete){
-			Set<String> listeDocReq = root.lookupDv(s).getDocuments();
+			Set<String> listeDocReq = root.lookupDv(s).getSetFileNames();
 			listeAllDocReq.addAll(listeDocReq);
 		}
 		
@@ -255,7 +262,7 @@ public class GestionRequete {
 	}
 
 	/**
-	 * 
+	 * Retourne la treeMap donnant la map triée par ordre de score décroissant
 	 * @param map : hashmap<nomDocument, score> à triée
 	 * @return treeMap donnant la map triée par ordre de score décoissant
 	 */
@@ -269,6 +276,17 @@ public class GestionRequete {
 		return mapTriee;
 	}
 	
-	
+	/**
+	 * Print la TreeMap
+	 * @param treeMap
+	 */
+	public static void printMap(TreeMap<String, Double> treeMap) {
+	    Iterator it = treeMap.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry pairs = (Map.Entry)it.next();
+	        System.out.println(pairs.getKey() + " = " + pairs.getValue());
+	        it.remove();
+	    }
+	}
 	
 }

@@ -48,13 +48,6 @@ public class DataValue {
 	public void setStats(StatMot stats) {
 		this.stats = stats;
 	}
-	
-	
-	//Pour ne pas avoir du rouge dans le traitement des requetes
-	//FIXME
-	public Set<String> getDocuments(){
-		return new HashSet<String>();
-	}
 
 	public void update(DataValue dv){
 		// Anciennes valeurs
@@ -80,6 +73,8 @@ public class DataValue {
 		if(ancienLabel.equals(nouvLabel)){
 			List<String> nouvListFileNames=new ArrayList<String>();
 			nouvListFileNames.addAll(nouvSetFileNames);
+			List<String> ancienListFileNames=new ArrayList<String>();
+			ancienListFileNames.addAll(ancienSetFileNames);
 			
 			// Vérification que la nouvelle liste de fichier que la dv contient est bien de taille 1
 			if(nouvListFileNames.size()==1){
@@ -103,12 +98,17 @@ public class DataValue {
 				
 				// Le fichier a déjà été renseigné
 				else{
-					
+					//System.out.println("le fichier existe déjà");
 					// Modification de la stat associée à ce fichier
 					HashMap<String,Integer> mapTf=ancienStats.getMapTf();
+				//	System.out.println(mapTf.toString());
 					Integer tfMotCourant=mapTf.get(nouvListFileNames.get(0));
+				//	System.out.println(tfMotCourant+1);
+				//	System.out.println(nouvListFileNames.get(0));
 					mapTf.put(nouvListFileNames.get(0), tfMotCourant+1);
+				//	System.out.println(mapTf.toString());
 					finalStats.setMapTf(mapTf);
+				//	System.out.println(finalStats.getMapTf().toString());
 				}
 			}
 			else{
@@ -119,9 +119,13 @@ public class DataValue {
 			System.out.println("Update failed : Labels don't match between old and new");
 		}
 		
-		this.nbFiles=finalNbFiles;
-		this.setFileNames=finalSetFileNames;
+		setNbFiles(finalNbFiles);
+		setSetFileNames(finalSetFileNames);
+		setStats(finalStats);
+	//	System.out.println(finalStats.getMapTf().toString());
+		System.out.println(this.stats.toString());
 		this.stats=finalStats;
+		System.out.println(this.stats.toString());
 	}
 
 }

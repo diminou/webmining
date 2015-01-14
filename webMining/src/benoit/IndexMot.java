@@ -14,10 +14,11 @@ public class IndexMot {
 	private StatMot stats;
 	
 	/**
-	 * Constructeur 3 param
+	 * Constructeur 4 param
 	 * @param label
 	 * @param nbFiles
 	 * @param listFileNames
+	 * @param stats
 	 */
 	public IndexMot(String label, int nbFiles, Set<String> setFileNames, StatMot stats){
 		super();
