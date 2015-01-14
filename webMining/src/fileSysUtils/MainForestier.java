@@ -50,6 +50,18 @@ public class MainForestier {
 		
 		System.err.println(root.lookup("apx").toString());
 		
+		root.insert("acne", new DataValue());
+		root = root.root();
+		System.out.println(root.toString());
+		
+		System.err.println(root.lookup("acne").getData().toString());
+		
+		root.insert("acne", new DataValue());
+		root = root.root();
+		System.out.println(root.toString());
+		
+		System.err.println(root.lookup("acne").getData().toString());
+		
 		
 		
 		//TravailFichier.createIndex("./corpus/");
