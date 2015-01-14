@@ -13,54 +13,45 @@ import benoit.TravailFichier;
 public class MainForestier {
 
 	public static void main(String[] args) throws IOException {
-		TreeRepresentation root = new TreeRepresentation("naturisme", null);
-		System.out.println(root.toString());
 		
-		root.insert("boloss", null);
-		root = root.root();
-		System.out.println(root.toString());
+		IndexWrapper index = new IndexWrapper();
+		index.insert("naturisme", null);
+		System.out.println(index.toString());
 		
-		root.insert("xenophobe", null);
-		root = root.root();
-		System.out.println(root.toString());
+		index.insert("boloss", null);
+		System.out.println(index.toString());
 		
-		root.insert("excellent", null);
-		root = root.root();
-		System.out.println(root.toString());
+		index.insert("xenophobe", null);
+		System.out.println(index.toString());
 		
-		root.insert("ablation", null);
-		root = root.root();
-		System.out.println(root.toString());
+		index.insert("excellent", null);
+		System.out.println(index.toString());
 		
-		root.insert("acne", null);
-		root = root.root();
-		System.out.println(root.toString());
+		index.insert("ablation", null);
+		System.out.println(index.toString());
 		
-		root.insert("aperitif", null);
-		root = root.root();
-		System.out.println(root.toString());
+		index.insert("acne", null);
+		System.out.println(index.toString());
 		
-		root.insert("apx", null);
-		root = root.root();
-		System.out.println(root.toString());
+		index.insert("aperitif", null);
+		System.out.println(index.toString());
 		
-		root.insert("apx", null);
-		root = root.root();
-		System.out.println(root.toString());
+		index.insert("apx", null);
+		System.out.println(index.toString());
 		
-		System.err.println(root.lookup("apx").toString());
+		index.insert("apx", null);
+		System.out.println(index.toString());
 		
-		root.insert("acne", new DataValue());
-		root = root.root();
-		System.out.println(root.toString());
 		
-		System.err.println(root.lookup("acne").getData().toString());
+		index.insert("acne", new DataValue());
+		System.out.println(index.toString());
 		
-		root.insert("acne", new DataValue());
-		root = root.root();
-		System.out.println(root.toString());
+		System.err.println(index.lookup("acne").toString());
 		
-		System.err.println(root.lookup("acne").getData().toString());
+		index.insert("acne", new DataValue());
+		System.out.println(index.toString());
+		
+		System.err.println(index.lookup("acne").toString());
 		
 		
 		
@@ -74,14 +65,14 @@ public class MainForestier {
 	 
 		try {
 	 
-			JsonNode node = mapper.valueToTree(root);
+			JsonNode node = mapper.valueToTree(index);
 			
 			// convert user object to json string, and save to a file
 			//mapper.writeTree(new File("./index/test.json"), node);
-			//mapper.writeTree(new JsonGenerator, rootNode);
+			//mapper.writeTree(new JsonGenerator, indexNode);
 	 
 			// display to console
-			System.out.println(mapper.writeValueAsString(root));
+			System.out.println(mapper.writeValueAsString(index));
 	 
 		} catch (JsonGenerationException e) {
 	 

@@ -35,6 +35,8 @@ public class IndexWrapper {
 		}
 	}
 	
-	
+	public String toString(){
+		return root.toString();
+	}
 
 }
