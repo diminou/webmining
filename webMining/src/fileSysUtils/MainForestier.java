@@ -48,9 +48,11 @@ public class MainForestier {
 		root = root.root();
 		System.out.println(root.toString());
 		
+		System.err.println(root.lookup("apx").toString());
 		
 		
-		TravailFichier.createIndex("./corpus/");
+		
+		//TravailFichier.createIndex("./corpus/");
 		
 		
 		
