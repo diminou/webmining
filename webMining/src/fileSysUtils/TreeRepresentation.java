@@ -3,12 +3,19 @@
  */
 package fileSysUtils;
 
+import java.io.Serializable;
+
 /**
  * @author divanov
  *
  */
 public class TreeRepresentation implements Comparable<TreeRepresentation>,
-		Cloneable {
+		Cloneable, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3125613499762838580L;
 
 	/**
 	 * 
