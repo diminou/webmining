@@ -18,7 +18,7 @@ public class MainLocal {
     	IndexWrapper index = new IndexWrapper();
     	
     	TreeRepresentation root=new TreeRepresentation("propre", null);
-		TreeRepresentation propre=TravailFichier.createIndex("corpus/",root);
+		TreeRepresentation propre=TravailFichier.createIndex("proprietaire/",root);
 		
 		Calendar cal1 = Calendar.getInstance();
     	cal1.getTime();

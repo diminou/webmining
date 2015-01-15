@@ -101,10 +101,12 @@ public class DataValue {
 	private void updateStats(StatMot sm){
 		if(sm != null){
 			if(this.stats != null){
+				System.out.println("old Stats : "+this.stats.toString());
 				this.stats.update(sm);
 			} else {
 				this.stats = sm;
 			}
+			System.out.println("new Stats : " + this.stats.toString());
 		}
 	}
 	
@@ -119,6 +121,9 @@ public class DataValue {
 			
 			this.updateLabel(dv.label);
 			this.updateSetFileNames(dv.setFileNames);
+			this.updateNbFiles();
+			this.updateStats(dv.stats);
+			
 		} else {
 			System.out.println("null DataValue as update data");
 		}
