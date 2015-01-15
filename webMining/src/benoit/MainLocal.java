@@ -15,6 +15,8 @@ public class MainLocal {
     	cal.getTime();
     	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
     	System.out.println( sdf.format(cal.getTime()) );
+    	
+    	
     	IndexWrapper index = new IndexWrapper();
     	
     	
@@ -26,7 +28,7 @@ public class MainLocal {
     	System.out.println( sdf1.format(cal1.getTime()) );
 		
     	//System.out.println(propre.lookup("propre"));
-    	System.out.println(index.lookup("propre").getStats().toString());
+    	System.out.println(index.lookup("propre.").getStats().toString());
     	
     	//GestionRequete.printMap(GestionRequete.classerDocument(GestionRequete.CalculAllScore("propre", index)));
     	
