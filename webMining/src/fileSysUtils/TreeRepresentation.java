@@ -229,23 +229,11 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 	private void updateData(TreeRepresentation tr) {
 		if (this.data != null) {
-			System.out.println("tree data : " + tr.toString());
-			System.out.println("old data : " + this.data.toString());
-			System.out.println("updateData label : " + tr.data.getLabel());
-			System.out.println("updateData data : " + tr.data.toString());
 			this.data.update(tr.data);
-			System.out.println("new data : " + tr.data);
-			System.out.println("new label : " + this.data.getLabel());
 		} else {
 			this.setData(tr.data);
-			if (tr.data != null) {
-				System.out.println("no old data" + System.lineSeparator()
-						+ "new data : " + tr.data.getLabel());
-			}
 
 		}
-
-		System.out.println("updataData finished" + System.lineSeparator());
 
 	}
 
@@ -275,7 +263,6 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 				this.data = tr.data;
 			}
 
-			System.err.println("update");
 		}
 
 	}
