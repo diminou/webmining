@@ -147,7 +147,7 @@ public class GestionRequete {
 	 * @param mapTf : la map contenant document et occurence
 	 * @return le nombre d'occurence de s dans nomDoc
 	 */
-	public static double calculOccurence(Integer nomDoc, HashMap<String,Integer> mapTf){
+	public static double calculOccurence(Integer nomDoc, HashMap<Integer,Integer> mapTf){
 		double occurence=0.0;
 		
 //		parcours String de hashmap, quand égale à s, on retient la value associé
@@ -195,7 +195,7 @@ public class GestionRequete {
 			DataValue DV = root.lookup(s);
 			
 			Set<Integer> setDoc = DV.getSetFileNames();					//set des documents contenant le mot s
-			HashMap<String,Integer> mapTf = DV.getStats().getMapTf();   //map des TF
+			HashMap<Integer,Integer> mapTf = DV.getStats().getMapTf();   //map des TF
 			
 			// On parcourt l'ensemble des documents d'appartenance du mot de la requête à la recherche du doc d'entrée			
 			if (setDoc.contains(nomDoc)){

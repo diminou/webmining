@@ -25,19 +25,19 @@ public class StatMot implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8769411144008796769L;
-	private HashMap<String,Integer> mapTf;
+	private HashMap<Integer,Integer> mapTf;
 	
 	
 	
 	public StatMot() {
 		super();
-		this.mapTf=new HashMap<String,Integer>();
+		this.mapTf=new HashMap<Integer,Integer>();
 	}
 	
 
 	
 	
-	public void setMapTf(HashMap<String, Integer> mapTf) {
+	public void setMapTf(HashMap<Integer, Integer> mapTf) {
 		this.mapTf = mapTf;
 	}
 
@@ -55,31 +55,31 @@ public class StatMot implements Serializable {
 	}
 
 
-	public HashMap<String, Integer> getMapTf() {
+	public HashMap<Integer, Integer> getMapTf() {
 		return mapTf;
 	}
 
 
 
-	public StatMot(HashMap<String, Integer> mapTf) {
+	public StatMot(HashMap<Integer, Integer> mapTf) {
 		super();
 		this.mapTf = mapTf;
 	}
 	
 	//FIXME
 	public void update(StatMot sm){
-		HashMap<String, Integer> ancienneMapTf = this.getMapTf();
-		HashMap<String, Integer> nouvMapTf = sm.getMapTf();
+		HashMap<Integer, Integer> ancienneMapTf = this.getMapTf();
+		HashMap<Integer, Integer> nouvMapTf = sm.getMapTf();
 		
-		List<String> listeFiles=new ArrayList<String>();
+		List<Integer> listeFiles=new ArrayList<Integer>();
 		
 		// On récupère la liste des files de la nouvelle map
-		for (Iterator<String> i = nouvMapTf.keySet().iterator() ; i.hasNext() ; ){
+		for (Iterator<Integer> i = nouvMapTf.keySet().iterator() ; i.hasNext() ; ){
 		    listeFiles.add(i.next()); 
 		}
 
 		// On parcourt les fileNames pour modifier les stats de la hashmap
-		for(String fileName : listeFiles){
+		for(Integer fileName : listeFiles){
 			
 			// Si le fichier a déjà été ajouté comme présent dans ce document : on incrémente
 			if(ancienneMapTf.containsKey(fileName)){
@@ -99,10 +99,10 @@ public class StatMot implements Serializable {
 	
 	@Override
 	public String toString() {
-		Iterator<String> iterator = this.mapTf.keySet().iterator();
+		Iterator<Integer> iterator = this.mapTf.keySet().iterator();
 		String result = "";
 		while (iterator.hasNext()) {
-			String key = iterator.next();
+			Integer key = iterator.next();
 			result = result + System.getProperty("line.separator") + key
 					+ " : " + mapTf.get(key);
 		}

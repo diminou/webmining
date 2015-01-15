@@ -298,8 +298,8 @@ public class TravailFichier {
     			dataValueMotCourant.setSetFileNames(setFileName);
     			
     			StatMot statMotCourant=new StatMot();
-    			HashMap<String, Integer> mapTf=new HashMap<String,Integer>();
-    			mapTf.put(listeFiles.get(i), 1);
+    			HashMap<Integer, Integer> mapTf=new HashMap<Integer,Integer>();
+    			mapTf.put(mapNumberDoc.get(listeFiles.get(i)), 1);
     			statMotCourant.setMapTf(mapTf);
     			dataValueMotCourant.setStats(statMotCourant);
     			
@@ -350,8 +350,8 @@ public class TravailFichier {
 		  			dataValueMotCourant.setSetFileNames(setFileName);
 		  			
 		  			StatMot statMotCourant=new StatMot();
-		  			HashMap<String, Integer> mapTf=new HashMap<String,Integer>();
-		  			mapTf.put(listeFiles.get(i), 1);
+		  			HashMap<Integer, Integer> mapTf=new HashMap<Integer,Integer>();
+		  			mapTf.put(mapNumberDoc.get(listeFiles.get(i)), 1);
 		  			statMotCourant.setMapTf(mapTf);
 		  			dataValueMotCourant.setStats(statMotCourant);
 		  			
@@ -403,8 +403,8 @@ public class TravailFichier {
     			dataValueMotCourant.setSetFileNames(setFileName);
     			
     			StatMot statMotCourant=new StatMot();
-    			HashMap<String, Integer> mapTf=new HashMap<String,Integer>();
-    			mapTf.put(listeFiles.get(i), 1);
+    			HashMap<Integer, Integer> mapTf=new HashMap<Integer,Integer>();
+    			mapTf.put(mapNumberDoc.get(listeFiles.get(i)), 1);
     			statMotCourant.setMapTf(mapTf);
     			dataValueMotCourant.setStats(statMotCourant);
     			
