@@ -122,6 +122,30 @@ public class TravailFichier {
 		br.close(); 
 		return text;
     }
+    
+    /**
+     * Retourne la List<String> des mots setmmatisés d'un fichier
+     * @param filename
+     * @return
+     * @throws IOException
+     */
+     public static List<String> listerMotsStem(String filename) throws IOException{
+     	ArrayList<String> text = new ArrayList<String>();
+ 		//lecture du fichier texte	
+ 		InputStream ips=new FileInputStream(filename); 
+ 		InputStreamReader ipsr=new InputStreamReader(ips);
+ 		BufferedReader br=new BufferedReader(ipsr);
+ 		String line;
+ 		while ((line=br.readLine())!=null){
+ 			
+ 			String[] ligneTemp=line.split(" ");
+ 			for (int i=0 ; i<ligneTemp.length ; i++){
+ 			text.addAll((new FrenchStemmer()).normalize(ligneTemp[i]));
+ 			}
+ 		}
+ 		br.close(); 
+ 		return text;
+     }
 
     /**
      * Retourne la List<String> des mots d'un folder
@@ -283,7 +307,7 @@ public class TravailFichier {
 	      // On parcourt tous les fichiers du folder
 	  	for (int i=0 ; i<listeFiles.size() ; i++) {
 	  		// Liste des "mots" du fichier courant
-	  		List<String> listMotsFile=(new FrenchStemmer()).normalize(listeFiles.get(i));
+	  		List<String> listMotsFile=listerMotsStem(listeFiles.get(i));
 	  		
 	  		// Pour un fichier, on parcourt tous ses mots
 	  		for(int j=0 ; j<listMotsFile.size() ; j++){
