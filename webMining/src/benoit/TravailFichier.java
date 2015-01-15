@@ -310,29 +310,32 @@ public class TravailFichier {
 	  		List<String> listMotsFile=listerMotsStem(listeFiles.get(i));
 	  		
 	  		// Pour un fichier, on parcourt tous ses mots
-	  		for(int j=0 ; j<listMotsFile.size() ; j++){
+	  		for(String s:listMotsFile){
 	  			
+	  			if(s.length()>1){
 	  			// Initialisation des "label" et "DataValue" à envoyer ensuite
-	  			String labelMotCourant=listMotsFile.get(j);
-	  			DataValue dataValueMotCourant=new DataValue();
+		  			String labelMotCourant=s;
+		  			DataValue dataValueMotCourant=new DataValue();
+		  			
+		  			// Remplissage de la "DataValue"
+		  			dataValueMotCourant.setLabel(labelMotCourant);
+		  			dataValueMotCourant.setNbFiles(1);
+		  			
+		  			Set<String> setFileName=new HashSet<String>();
+		  			setFileName.add(listeFiles.get(i));
+		  			dataValueMotCourant.setSetFileNames(setFileName);
+		  			
+		  			StatMot statMotCourant=new StatMot();
+		  			HashMap<String, Integer> mapTf=new HashMap<String,Integer>();
+		  			mapTf.put(listeFiles.get(i), 1);
+		  			statMotCourant.setMapTf(mapTf);
+		  			dataValueMotCourant.setStats(statMotCourant);
+		  			
+		  			// Ajout du mot dans la base de données (si déjà présent, la méthode update de la classe sera appelée)
+		
+		  			index.insert(labelMotCourant, dataValueMotCourant);
+	  			}
 	  			
-	  			// Remplissage de la "DataValue"
-	  			dataValueMotCourant.setLabel(labelMotCourant);
-	  			dataValueMotCourant.setNbFiles(1);
-	  			
-	  			Set<String> setFileName=new HashSet<String>();
-	  			setFileName.add(listeFiles.get(i));
-	  			dataValueMotCourant.setSetFileNames(setFileName);
-	  			
-	  			StatMot statMotCourant=new StatMot();
-	  			HashMap<String, Integer> mapTf=new HashMap<String,Integer>();
-	  			mapTf.put(listeFiles.get(i), 1);
-	  			statMotCourant.setMapTf(mapTf);
-	  			dataValueMotCourant.setStats(statMotCourant);
-	  			
-	  			// Ajout du mot dans la base de données (si déjà présent, la méthode update de la classe sera appelée)
-	
-	  			index.insert(labelMotCourant, dataValueMotCourant);
 	  			
 	  			
 	  		}	
