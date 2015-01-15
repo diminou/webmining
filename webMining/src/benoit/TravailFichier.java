@@ -226,7 +226,7 @@ public class TravailFichier {
     	// Liste des noms des fichiers du folder
         final File folder = new File(folderName);
         List<String> listeFiles=new ArrayList<String>();
-        for(final File fileEntry : folder.listFiles()){
+        for(File fileEntry : folder.listFiles()){
         	listeFiles.add(folderName+fileEntry.getName());
         }
         

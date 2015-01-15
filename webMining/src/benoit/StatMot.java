@@ -59,6 +59,11 @@ public class StatMot {
 		this.mapTf = mapTf;
 	}
 	
+	//FIXME
+	public void update(StatMot sm){
+		
+	}
+	
 	
 	@Override
 	public String toString() {

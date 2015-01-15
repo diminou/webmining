@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import quentin.GestionRequete;
+import fileSysUtils.IndexWrapper;
 import fileSysUtils.TreeRepresentation;
 
 public class MainLocal {
@@ -14,8 +15,10 @@ public class MainLocal {
     	cal.getTime();
     	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
     	System.out.println( sdf.format(cal.getTime()) );
+    	IndexWrapper index = new IndexWrapper();
+    	
     	TreeRepresentation root=new TreeRepresentation("propre", null);
-		TreeRepresentation propre=TravailFichier.createIndex("proprietaire/",root);
+		TreeRepresentation propre=TravailFichier.createIndex("corpus/",root);
 		
 		Calendar cal1 = Calendar.getInstance();
     	cal1.getTime();
