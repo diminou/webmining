@@ -27,6 +27,11 @@ public class IndexWrapper {
 
 	public IndexWrapper() {
 		super();
+		try {
+			this.deserializeRoot();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void insert(String label, DataValue dv) {
