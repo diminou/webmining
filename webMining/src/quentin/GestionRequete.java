@@ -147,7 +147,7 @@ public class GestionRequete {
 	 * @return le nombre d'occurence de s dans nomDoc
 	 */
 	public static double calculOccurence(String nomDoc, HashMap<String,Integer> mapTf){
-		double occurence=0;
+		double occurence=0.0;
 		
 //		parcours String de hashmap, quand égale à s, on retient la value associé
 		
@@ -163,10 +163,10 @@ public class GestionRequete {
 //			}
 //		}	
 			
-			occurence=mapTf.get(nomDoc);
+			occurence= (double) mapTf.get(nomDoc);
 		
 		}else {
-			occurence=0;
+			occurence=0.0;
 		}
 		return occurence;
 	}
@@ -204,6 +204,7 @@ public class GestionRequete {
 				
 			}
 			
+			//TODO à suppr
 //			Iterator<String> iter = setDoc.iterator();
 //			while(iter.hasNext()){
 //				String doc = iter.next();
@@ -223,7 +224,7 @@ public class GestionRequete {
 		if(denom!=0.0){
 			score=num/Math.sqrt(denom);
 		}else {
-			score=0;
+			score=0.0;
 		}
 		
 		return score;
@@ -287,6 +288,25 @@ public class GestionRequete {
 	        System.out.println(pairs.getKey() + " = " + pairs.getValue());
 	        it.remove();
 	    }
+	}
+	
+	
+	/**
+	 * 
+	 * @param treeMap
+	 * @return la liste contenant les clés de la treemap (utile pour l'interface)
+	 */
+	public static List<String> mapKeyToListe(TreeMap<String, Double> treeMap){
+		List<String> listeString = new ArrayList<String>();
+		
+		Iterator it = treeMap.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry pairs = (Map.Entry)it.next();
+	        listeString.add((String) pairs.getKey());
+
+	        it.remove();
+	    }
+	    return listeString;
 	}
 	
 }

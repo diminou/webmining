@@ -17,7 +17,7 @@ public class MainQuentin {
 //		System.out.println(GestionRequete.ListeToString(listeString) );
 //		
 //		System.out.println(GestionRequete.requeteStem("petit test stemmatisation requete"));
-		
+	
 		
 //		HashMap<String, Double> hm = new HashMap<String, Double>();
 //
@@ -29,7 +29,7 @@ public class MainQuentin {
 //		hm.put("b", 12.0);
 //		System.out.println(GestionRequete.classerDocument(hm));
 		
-		Fenetre f = new Fenetre();
+//		Fenetre f = new Fenetre();
 			
 	
 																																																																				

@@ -11,7 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,11 +24,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import quentin.GestionRequete;
+
 public class Fenetre extends JFrame {
 
 	private JButton bouton = new JButton("Rechercher");
 	private JTextField jtf = new JTextField();
-	// private JTextField jtf = new JTextField("Valeur par défaut");
 	private JPanel containerGlobal = new JPanel();
 	private JPanel container = new JPanel();
 	private JPanel resultatContainer = new JPanel();
@@ -105,7 +108,6 @@ public class Fenetre extends JFrame {
 		resultatContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 		containerGlobal.add(resultatContainer);
 
-		// this.setContentPane(container);
 		this.setContentPane(containerGlobal);
 
 		this.setVisible(true);
@@ -114,15 +116,29 @@ public class Fenetre extends JFrame {
 
 	public static void Rechercher(String textChamp, Container p, JPanel jp) {
 		if (!(textChamp.equals(""))) {
-			// TODO appeller la méthode d'affichage des docs pertinents
+			
 			jp.repaint();
 			System.out.println("You clicked the button " + textChamp);
-
+			
 			List<String> l = new ArrayList<String>();
-			l.add("Un");
-			l.add("Deux");
-			l.add("trois");
-			l.add("quatre");
+
+			//TODO remplacer par la liste des noms des Docs pertinents
+			//TODO remplacer root 
+		
+//			HashMap<String, Double> HM = GestionRequete.CalculAllScore(textChamp, root);
+			HashMap<String, Double> HM = new HashMap<String, Double>();
+			HM.put("trois", 3.0);
+			HM.put("deux", 2.0);
+			HM.put("quatre", 4.0);
+			HM.put("un", 1.0);
+			HM.put("cinq", 5.0);
+			TreeMap<String, Double>  treeMap = GestionRequete.classerDocument(HM);
+			l= GestionRequete.mapKeyToListe(treeMap);
+			
+//			l.add("Un");
+//			l.add("Deux");
+//			l.add("trois");
+//			l.add("quatre");
 
 			TableauRes modele = new TableauRes(l);
 
