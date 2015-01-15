@@ -76,64 +76,75 @@ public class DataValue {
 
 		System.out.println("updateLevel finished" + System.lineSeparator());
 	}
+	
+	private void updateNbFiles(){
+		System.out.println("DV.updateNbFiles");
+		if(this.setFileNames!=null){
+			this.nbFiles = this.setFileNames.size();
+		}
+	}
+	
+	private void updateSetFileNames(Set<String> newSet){
+		if(newSet!= null){
+			if(this.setFileNames!=null){
+				System.out.println("old SFN : " + this.setFileNames.toString());
+				this.setFileNames.addAll(newSet);
+				this.updateNbFiles();
+			} else {
+				this.setFileNames = newSet;
+				this.updateNbFiles();
+			}
+			System.out.println("new SFN : " + this.setFileNames.toString());
+		}
+	}
+	
+	private void updateStats(StatMot sm){
+		if(sm != null){
+			if(this.stats != null){
+				System.out.println("old Stats : "+this.stats.toString());
+				this.stats.update(sm);
+			} else {
+				this.stats = sm;
+			}
+			System.out.println("new Stats : " + this.stats.toString());
+		}
+	}
+	
+	
 
 	// FIXME
-//	public void update(DataValue dv) {
-//		System.out.println("DataValue.update");
-//		if (dv != null) {
-//			System.out.println("update != null");
-//			System.out.println("DV.update label : " + dv.label);
-//			
-//			this.updateLabel(dv.label);
-//		} else {
-//			System.out.println("null DataValue as update data");
-//		}
-//
-//		System.out
-//				.println("DataValue.update finished" + System.lineSeparator());
-//	}
-//
-//	public String toString() {
-//		String result = "label = " + label + System.lineSeparator()
-//				+ "nbFiles = " + nbFiles;
-//		return result;
-//	}
-	
-//	public void update(DataValue dv) {
-//		
-//		if (dv != null) {
-//			System.out.println("New DataValue not null");
-//			
-//			if(!dv.label.equals(null)){
-//				System.out.println("New DataValue.label not null");
-//				this.updateLabel(dv.getLabel());
-//			}
-//			if(dv.nbFiles!=0){
-//				System.out.println("New DataValue.nbFiles not null");
-//			}
-//			
-//			this.updateLabel(dv.label);
-//		} else {
-//			System.out.println("null DataValue as update data");
-//		}
-//
-//		System.out
-//				.println("DataValue.update finished" + System.lineSeparator());
-//	}
-//
-//	
-//	
-//	
-//	public String toString() {
-//		String result = "label = " + label + System.lineSeparator()
-//				+ "nbFiles = " + nbFiles;
-//		return result;
-//	}
-
-	// FIXME
-
-	
 	public void update(DataValue dv) {
+		System.out.println("DataValue.update");
+		if (dv != null) {
+			System.out.println("update != null");
+			System.out.println("DV.update label : " + dv.label);
+			
+			this.updateLabel(dv.label);
+			this.updateSetFileNames(dv.setFileNames);
+			this.updateStats(dv.stats);
+			System.err.println("Propre stats : "+this.stats.toString());
+		} else {
+			System.out.println("null DataValue as update data");
+		}
+
+		System.out
+				.println("DataValue.update finished" + System.lineSeparator());
+	}
+
+	public String toString() {
+		String result = "label = " + label + System.lineSeparator()
+				+ "nbFiles = " + nbFiles;
+		return result;
+	}
+	
+	
+	
+	
+
+	// FIXME
+
+	
+/*	public void update(DataValue dv) {
 		// Anciennes valeurs
 		String ancienLabel = this.label;
 		int ancienNbFiles = this.nbFiles;
@@ -326,6 +337,6 @@ public class DataValue {
 				System.out.println("Update failed : New label not implemented");
 			}
 		}
-	}
+	}*/
 
 }

@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import fileSysUtils.DataValue;
+import fileSysUtils.IndexWrapper;
 import fileSysUtils.TreeRepresentation;
 import td.td1.FrequencyMap;
 import tools.FrenchStemmer;
@@ -217,16 +218,16 @@ public class TravailFichier {
     }
     
   /**
-   * Méthode finale de création d'index  
+   * Méthode finale de création d'index pour les fichiers bruts  
    * @param folderName
    * @throws IOException
    */
-    public static TreeRepresentation createIndex(String folderName, TreeRepresentation root) throws IOException{
+    public static void createIndex(String folderName, IndexWrapper index) throws IOException{
     	
     	// Liste des noms des fichiers du folder
         final File folder = new File(folderName);
         List<String> listeFiles=new ArrayList<String>();
-        for(final File fileEntry : folder.listFiles()){
+        for(File fileEntry : folder.listFiles()){
         	listeFiles.add(folderName+fileEntry.getName());
         }
         
@@ -258,15 +259,114 @@ public class TravailFichier {
     			
     			// Ajout du mot dans la base de données (si déjà présent, la méthode update de la classe sera appelée)
 
-    			root.insert(labelMotCourant, dataValueMotCourant);
-    			root = root.root();
+    			index.insert(labelMotCourant, dataValueMotCourant);
+    			
     			
     		}	
     	}
-    	return root;
     }
     
     
+    
+    /**
+     * Méthode finale de création d'index pour les fichiers avec stemmatisation en direct live  
+     * @param folderName
+     * @throws IOException
+     */
+      public static void createIndexStemming(String folderName, IndexWrapper index) throws IOException{
+      	
+      	// Liste des noms des fichiers du folder
+          final File folder = new File(folderName);
+          List<String> listeFiles=new ArrayList<String>();
+          for(File fileEntry : folder.listFiles()){
+          	listeFiles.add(folderName+fileEntry.getName());
+          }
+          
+          // On parcourt tous les fichiers du folder
+      	for (int i=0 ; i<listeFiles.size() ; i++) {
+      		// Liste des "mots" du fichier courant
+      		List<String> listMotsFile=(new FrenchStemmer()).normalize(listeFiles.get(i));
+      		
+      		// Pour un fichier, on parcourt tous ses mots
+      		for(int j=0 ; j<listMotsFile.size() ; j++){
+      			
+      			// Initialisation des "label" et "DataValue" à envoyer ensuite
+      			String labelMotCourant=listMotsFile.get(j);
+      			DataValue dataValueMotCourant=new DataValue();
+      			
+      			// Remplissage de la "DataValue"
+      			dataValueMotCourant.setLabel(labelMotCourant);
+      			dataValueMotCourant.setNbFiles(1);
+      			
+      			Set<String> setFileName=new HashSet<String>();
+      			setFileName.add(listeFiles.get(i));
+      			dataValueMotCourant.setSetFileNames(setFileName);
+      			
+      			StatMot statMotCourant=new StatMot();
+      			HashMap<String, Integer> mapTf=new HashMap<String,Integer>();
+      			mapTf.put(listeFiles.get(i), 1);
+      			statMotCourant.setMapTf(mapTf);
+      			dataValueMotCourant.setStats(statMotCourant);
+      			
+      			// Ajout du mot dans la base de données (si déjà présent, la méthode update de la classe sera appelée)
+
+      			index.insert(labelMotCourant, dataValueMotCourant);
+      			
+      			
+      		}	
+      	}
+      }
+      
+      
+      
+      /**
+       * Méthode finale de création d'index pour les fichiers bruts  
+       * @param folderName
+       * @throws IOException
+       */
+        public static void createIndexLemme(String folderName, IndexWrapper index) throws IOException{
+        	
+        	// Liste des noms des fichiers du folder
+            final File folder = new File(folderName);
+            List<String> listeFiles=new ArrayList<String>();
+            for(File fileEntry : folder.listFiles()){
+            	listeFiles.add(folderName+fileEntry.getName());
+            }
+            
+            // On parcourt tous les fichiers du folder
+        	for (int i=0 ; i<listeFiles.size() ; i++) {
+        		// Liste des "mots" du fichier courant
+        		List<String> listMotsFile=listerMots(listeFiles.get(i));
+        		
+        		// Pour un fichier, on parcourt tous ses mots
+        		for(int j=0 ; j<listMotsFile.size() ; j++){
+        			
+        			// Initialisation des "label" et "DataValue" à envoyer ensuite
+        			String labelMotCourant=listMotsFile.get(j);
+        			DataValue dataValueMotCourant=new DataValue();
+        			
+        			// Remplissage de la "DataValue"
+        			dataValueMotCourant.setLabel(labelMotCourant);
+        			dataValueMotCourant.setNbFiles(1);
+        			
+        			Set<String> setFileName=new HashSet<String>();
+        			setFileName.add(listeFiles.get(i));
+        			dataValueMotCourant.setSetFileNames(setFileName);
+        			
+        			StatMot statMotCourant=new StatMot();
+        			HashMap<String, Integer> mapTf=new HashMap<String,Integer>();
+        			mapTf.put(listeFiles.get(i), 1);
+        			statMotCourant.setMapTf(mapTf);
+        			dataValueMotCourant.setStats(statMotCourant);
+        			
+        			// Ajout du mot dans la base de données (si déjà présent, la méthode update de la classe sera appelée)
+
+        			index.insert(labelMotCourant, dataValueMotCourant);
+        			
+        			
+        		}	
+        	}
+        }
 	
 
 }
