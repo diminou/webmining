@@ -241,6 +241,25 @@ public class TravailFichier {
 		
     }
     
+    public static HashMap<String,Integer> createIndexNumberDocs (String folderName){
+    	HashMap<String, Integer> mapSortie=new HashMap<String, Integer>();
+    
+    	final File folder = new File(folderName);
+        List<String> listeFiles=new ArrayList<String>();
+        for(File fileEntry : folder.listFiles()){
+        	listeFiles.add(folderName+fileEntry.getName());
+        }
+        
+        for(int i=0 ; i<listeFiles.size() ; i++){
+        	mapSortie.put(listeFiles.get(i), i);
+        }
+        
+        
+    	return mapSortie;
+    }
+    
+    
+    
   /**
    * Méthode finale de création d'index pour les fichiers bruts  
    * @param folderName
@@ -254,6 +273,9 @@ public class TravailFichier {
         for(File fileEntry : folder.listFiles()){
         	listeFiles.add(folderName+fileEntry.getName());
         }
+        HashMap<String, Integer> mapNumberDoc=createIndexNumberDocs(folderName);
+        
+        
         
         // On parcourt tous les fichiers du folder
     	for (int i=0 ; i<listeFiles.size() ; i++) {
@@ -271,8 +293,8 @@ public class TravailFichier {
 //    			dataValueMotCourant.setLabel(labelMotCourant);
     			dataValueMotCourant.setNbFiles(1);
     			
-    			Set<String> setFileName=new HashSet<String>();
-    			setFileName.add(listeFiles.get(i));
+    			Set<Integer> setFileName=new HashSet<Integer>();
+    			setFileName.add(mapNumberDoc.get(listeFiles.get(i)));
     			dataValueMotCourant.setSetFileNames(setFileName);
     			
     			StatMot statMotCourant=new StatMot();
@@ -303,6 +325,7 @@ public class TravailFichier {
 	      for(File fileEntry : folder.listFiles()){
 	      	listeFiles.add(folderName+fileEntry.getName());
 	      }
+	      HashMap<String, Integer> mapNumberDoc=createIndexNumberDocs(folderName);
 	      
 	      // On parcourt tous les fichiers du folder
 	  	for (int i=0 ; i<listeFiles.size() ; i++) {
@@ -322,8 +345,8 @@ public class TravailFichier {
 //		  			dataValueMotCourant.setLabel(labelMotCourant);
 		  			dataValueMotCourant.setNbFiles(1);
 		  			
-		  			Set<String> setFileName=new HashSet<String>();
-		  			setFileName.add(listeFiles.get(i));
+		  			Set<Integer> setFileName=new HashSet<Integer>();
+		  			setFileName.add(mapNumberDoc.get(listeFiles.get(i)));
 		  			dataValueMotCourant.setSetFileNames(setFileName);
 		  			
 		  			StatMot statMotCourant=new StatMot();
@@ -356,6 +379,8 @@ public class TravailFichier {
         for(File fileEntry : folder.listFiles()){
         	listeFiles.add(folderName+fileEntry.getName());
         }
+	      HashMap<String, Integer> mapNumberDoc=createIndexNumberDocs(folderName);
+
         
         // On parcourt tous les fichiers du folder
     	for (int i=0 ; i<listeFiles.size() ; i++) {
@@ -373,8 +398,8 @@ public class TravailFichier {
 //    			dataValueMotCourant.setLabel(labelMotCourant);
     			dataValueMotCourant.setNbFiles(1);
     			
-    			Set<String> setFileName=new HashSet<String>();
-    			setFileName.add(listeFiles.get(i));
+    			Set<Integer> setFileName=new HashSet<Integer>();
+    			setFileName.add(mapNumberDoc.get(listeFiles.get(i)));
     			dataValueMotCourant.setSetFileNames(setFileName);
     			
     			StatMot statMotCourant=new StatMot();

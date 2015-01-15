@@ -3,15 +3,15 @@ package quentin;
 import java.util.Comparator;
 import java.util.Map;
 
-public class ValueComparator implements Comparator<String> {
+public class ValueComparator implements Comparator<Integer> {
 
-	Map<String, Double> map;
+	Map<Integer, Double> map;
 	
-	public ValueComparator(Map<String, Double> map) {
+	public ValueComparator(Map<Integer, Double> map) {
 		this.map = map;
 	}
 
-	public int compare(String a, String b) {
+	public int compare(Integer a, Integer b) {
 		if (map.get(a) >= map.get(b)) {
 			return -1;
 		} else {

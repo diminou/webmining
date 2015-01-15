@@ -147,7 +147,7 @@ public class GestionRequete {
 	 * @param mapTf : la map contenant document et occurence
 	 * @return le nombre d'occurence de s dans nomDoc
 	 */
-	public static double calculOccurence(String nomDoc, HashMap<String,Integer> mapTf){
+	public static double calculOccurence(Integer nomDoc, HashMap<String,Integer> mapTf){
 		double occurence=0.0;
 		
 //		parcours String de hashmap, quand égale à s, on retient la value associé
@@ -181,7 +181,7 @@ public class GestionRequete {
 	 * @param root
 	 * @return Le score du document associé à la requete
 	 */
-	public static double calculScoreDoc(String req, String nomDoc,  IndexWrapper root){
+	public static double calculScoreDoc(String req, Integer nomDoc,  IndexWrapper root){
 		double score=0;
 		List<String> listeRequete= new ArrayList<String>();
 		listeRequete = requeteSplit(req);
@@ -194,7 +194,7 @@ public class GestionRequete {
 		for(String s :listeRequete){
 			DataValue DV = root.lookup(s);
 			
-			Set<String> setDoc = DV.getSetFileNames();					//set des documents contenant le mot s
+			Set<Integer> setDoc = DV.getSetFileNames();					//set des documents contenant le mot s
 			HashMap<String,Integer> mapTf = DV.getStats().getMapTf();   //map des TF
 			
 			// On parcourt l'ensemble des documents d'appartenance du mot de la requête à la recherche du doc d'entrée			
@@ -239,25 +239,25 @@ public class GestionRequete {
 	 * @param root 
 	 * @return : la map non triée contenant tous les documents associée à la requete et leur score associé.
 	 */
-	public static HashMap<String, Double> CalculAllScore(String req,  IndexWrapper root){
+	public static HashMap<Integer, Double> CalculAllScore(String req,  IndexWrapper root){
 		
 		//contient tous les documents contenant au moins un mots de la requete
-		Set<String> listeAllDocReq = new HashSet<String>();
+		Set<Integer> listeAllDocReq = new HashSet<Integer>();
 		
 		List<String> listeRequete= new ArrayList<String>();
 		listeRequete = requeteSplit(req);
 		for(String s : listeRequete){
 			if(root.lookup(s)!=null){
-				Set<String> listeDocReq = root.lookup(s).getSetFileNames();
+				Set<Integer> listeDocReq = root.lookup(s).getSetFileNames();
 				listeAllDocReq.addAll(listeDocReq);
 			}
 		}
 		
-		HashMap<String, Double> HM = new HashMap<String, Double>();
+		HashMap<Integer, Double> HM = new HashMap<Integer, Double>();
 		// On calcul le score associé à chaque document
-		Iterator<String> i = listeAllDocReq.iterator();
+		Iterator<Integer> i = listeAllDocReq.iterator();
 		while(i.hasNext()){
-			String nomDoc = i.next();
+			Integer nomDoc = i.next();
 			double score =0.0;
 			score =calculScoreDoc(req, nomDoc, root);
 			HM.put(nomDoc, score);			
@@ -271,10 +271,10 @@ public class GestionRequete {
 	 * @param map : hashmap<nomDocument, score> à triée
 	 * @return treeMap donnant la map triée par ordre de score décoissant
 	 */
-	public static TreeMap<String, Double> classerDocument(HashMap<String, Double> map){
+	public static TreeMap<Integer, Double> classerDocument(HashMap<Integer, Double> map){
 		
 		ValueComparator comparateur = new ValueComparator(map);
-		TreeMap<String,Double> mapTriee = new TreeMap<String,Double>(comparateur);
+		TreeMap<Integer,Double> mapTriee = new TreeMap<Integer,Double>(comparateur);
 		
 		mapTriee.putAll(map);
 		
@@ -300,14 +300,14 @@ public class GestionRequete {
 	 * @param treeMap
 	 * @return la liste contenant les clés de la treemap (utile pour l'interface)
 	 */
-	public static List<String> mapKeyToListe(TreeMap<String, Double> treeMap){
-		List<String> listeString = new ArrayList<String>();
+	public static List<Integer> mapKeyToListe(TreeMap<Integer, Double> treeMap){
+		List<Integer> listeString = new ArrayList<Integer>();
 		
 		Iterator it = treeMap.entrySet().iterator();
 	    while (it.hasNext()) {
 	        Map.Entry pairs = (Map.Entry)it.next();
 	        System.out.println(pairs.getKey() + " " + pairs.getValue());
-	        listeString.add((String) pairs.getKey());
+	        listeString.add((Integer) pairs.getKey());
 
 	        it.remove();
 	    }

@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import benoit.TravailFichier;
 import fileSysUtils.IndexWrapper;
@@ -169,7 +170,7 @@ public class Fenetre extends JFrame {
 //				// TODO Auto-generated catch block
 //				e2.printStackTrace();
 //			}
-			HashMap<String, Double> HM = GestionRequete.CalculAllScore(textChamp, index);
+			HashMap<Integer, Double> HM = GestionRequete.CalculAllScore(textChamp, index);
 //			HashMap<String, Double> HM = new HashMap<String, Double>();
 //			HM.put("trois", 3.0);
 //			HM.put("deux", 2.0);
@@ -177,8 +178,26 @@ public class Fenetre extends JFrame {
 //			HM.put("un", 1.0);
 //			HM.put("cinq", 5.0);
 			
-			TreeMap<String, Double>  treeMap = GestionRequete.classerDocument(HM);
-			l= GestionRequete.mapKeyToListe(treeMap);
+			TreeMap<Integer, Double>  treeMap = GestionRequete.classerDocument(HM);
+			List<Integer> lint = new ArrayList<Integer>();
+			lint= GestionRequete.mapKeyToListe(treeMap);
+			
+			HashMap<String,Integer> mapIndexFileNumber=TravailFichier.createIndexNumberDocs("/corpus");
+			
+			
+			
+			for(int aaa : lint){
+				
+				java.util.Iterator<String> i=mapIndexFileNumber.keySet().iterator();
+				while(i.hasNext()){
+				
+					if(aaa==mapIndexFileNumber.get(i.next())){
+						l.add(i.next());
+						break;
+					}
+				}
+			}
+		
 			
 //			l.add("Un");
 //			l.add("Deux");

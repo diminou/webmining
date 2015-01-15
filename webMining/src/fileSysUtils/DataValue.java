@@ -16,14 +16,14 @@ public class DataValue implements Serializable {
 	 */
 	private static final long serialVersionUID = 9006979490267160040L;
 	private int nbFiles;
-	private Set<String> setFileNames;
+	private Set<Integer> setFileNames;
 	private StatMot stats;
 
 	public DataValue() {
 		super();
 	}
 	
-	public DataValue(String label, int nbFiles, Set<String> setFileNames, StatMot stats){
+	public DataValue(String label, int nbFiles, Set<Integer> setFileNames, StatMot stats){
 		super();
 		this.nbFiles = nbFiles;
 		this.setFileNames = setFileNames;
@@ -39,11 +39,11 @@ public class DataValue implements Serializable {
 		this.nbFiles = nbFiles;
 	}
 
-	public Set<String> getSetFileNames() {
+	public Set<Integer> getSetFileNames() {
 		return setFileNames;
 	}
 
-	public void setSetFileNames(Set<String> setFileNames) {
+	public void setSetFileNames(Set<Integer> setFileNames) {
 		this.setFileNames = setFileNames;
 	}
 
@@ -80,7 +80,7 @@ public class DataValue implements Serializable {
 		}
 	}
 	
-	private void updateSetFileNames(Set<String> newSet){
+	private void updateSetFileNames(Set<Integer> newSet){
 		if(newSet!= null){
 			if(this.setFileNames!=null){
 //				System.out.println("old SFN : " + this.setFileNames.toString());
