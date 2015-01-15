@@ -185,8 +185,8 @@ public class GestionRequete {
 		List<String> listeRequete= new ArrayList<String>();
 		listeRequete = requeteSplit(req);
 	
-		double num=0;
-		double denom = 0;
+		double num=0.0;
+		double denom = 0.0;
 		List<Double> listeOccurence = new ArrayList<Double>();
 		
 		// On parcourt l'ensemble des mots de la requête
@@ -198,7 +198,7 @@ public class GestionRequete {
 			
 			// On parcourt l'ensemble des documents d'appartenance du mot de la requête à la recherche du doc d'entrée			
 			if (setDoc.contains(nomDoc)){
-				double di =0;
+				double di =0.0;
 				di= calculOccurence(nomDoc, mapTf);
 				listeOccurence.add(di);
 				
@@ -254,7 +254,7 @@ public class GestionRequete {
 		Iterator<String> i = listeAllDocReq.iterator();
 		while(i.hasNext()){
 			String nomDoc = i.next();
-			double score =0;
+			double score =0.0;
 			score =calculScoreDoc(req, nomDoc, root);
 			HM.put(nomDoc, score);			
 		}

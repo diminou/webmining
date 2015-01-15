@@ -29,10 +29,9 @@ public class MainQuentin {
 //		hm.put("b", 12.0);
 //		System.out.println(GestionRequete.classerDocument(hm));
 		
-//		Fenetre f = new Fenetre();
+		Fenetre f = new Fenetre();
 			
-	
-																																																																				
+																																																										
 	}
 
 }
