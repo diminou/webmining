@@ -84,6 +84,8 @@ public class MainForestier {
 		DataValue testDv = new DataValue();
 		System.out.println(testDv.getLabel());
 		
+		index.serializeRoot();
+		
 		
 		//TravailFichier.createIndex("./corpus/");
 		

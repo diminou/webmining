@@ -1,4 +1,4 @@
-package quentin;
+package quentin;	
 
 import interfaceGraphique.Fenetre;
 
@@ -34,4 +34,4 @@ public class MainQuentin {
 																																																										
 	}
 
-}
+}	

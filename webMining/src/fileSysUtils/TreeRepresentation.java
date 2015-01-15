@@ -3,12 +3,19 @@
  */
 package fileSysUtils;
 
+import java.io.Serializable;
+
 /**
  * @author divanov
  *
  */
 public class TreeRepresentation implements Comparable<TreeRepresentation>,
-		Cloneable {
+		Cloneable, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3125613499762838580L;
 
 	/**
 	 * 
@@ -200,9 +207,9 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 	public TreeRepresentation lookup(String value) {
 		TreeRepresentation temp = new TreeRepresentation(value, null);
-		if (temp.compareTo(this) == 0) {
+		if (temp.compareToIgnoreCase(this) == 0) {
 			return this;
-		} else if (temp.compareTo(this) < 0) {
+		} else if (temp.compareToIgnoreCase(this) < 0) {
 			if (this.getLeftChild() != null) {
 				return this.leftChild.lookup(value);
 			} else {
@@ -218,34 +225,28 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 	}
 
 	public DataValue lookupDv(String key) {
-		return (this.lookup(key)).getData();
+		TreeRepresentation tr = this.lookup(key);
+		if (tr != null) {
+			return tr.getData();
+		} else {
+			return null;
+		}
+
 	}
 
 	private void updateData(TreeRepresentation tr) {
 		if (this.data != null) {
-			System.out.println("tree data : " + tr.toString());
-			System.out.println("old data : " + this.data.toString());
-			System.out.println("updateData label : " + tr.data.getLabel());
-			System.out.println("updateData data : " + tr.data.toString());
 			this.data.update(tr.data);
-			System.out.println("new data : " + tr.data);
-			System.out.println("new label : " + this.data.getLabel());
 		} else {
 			this.setData(tr.data);
-			if (tr.data != null) {
-				System.out.println("no old data" + System.lineSeparator()
-						+ "new data : " + tr.data.getLabel());
-			}
 
 		}
-		
-		System.out.println("updataData finished" + System.lineSeparator());
 
 	}
 
 	protected void insert(TreeRepresentation tr) {
 
-		if (tr.compareTo(this) > 0) {
+		if (tr.compareToIgnoreCase(this) > 0) {
 			if (this.rightChild == null) {
 				this.rightChild = tr;
 				tr.parent = this;
@@ -253,7 +254,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 			} else {
 				this.rightChild.insert(tr);
 			}
-		} else if (tr.compareTo(this) < 0) {
+		} else if (tr.compareToIgnoreCase(this) < 0) {
 			if (this.leftChild == null) {
 				this.leftChild = tr;
 				tr.parent = this;
@@ -262,14 +263,13 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 				this.leftChild.insert(tr);
 			}
 
-		} else if (tr.compareTo(this) == 0) {
-			if(this.data!= null){
+		} else if (tr.compareToIgnoreCase(this) == 0) {
+			if (this.data != null) {
 				this.data.update(tr.data);
 			} else {
 				this.data = tr.data;
 			}
-			
-			System.err.println("update");
+
 		}
 
 	}

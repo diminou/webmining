@@ -16,6 +16,7 @@ import java.util.TreeMap;
 
 import tools.FrenchStemmer;
 import fileSysUtils.DataValue;
+import fileSysUtils.IndexWrapper;
 import fileSysUtils.TreeRepresentation;
 
 
@@ -180,7 +181,7 @@ public class GestionRequete {
 	 * @param root
 	 * @return Le score du document associé à la requete
 	 */
-	public static double calculScoreDoc(String req, String nomDoc,  TreeRepresentation root){
+	public static double calculScoreDoc(String req, String nomDoc,  IndexWrapper root){
 		double score=0;
 		List<String> listeRequete= new ArrayList<String>();
 		listeRequete = requeteSplit(req);
@@ -191,7 +192,7 @@ public class GestionRequete {
 		
 		// On parcourt l'ensemble des mots de la requête
 		for(String s :listeRequete){
-			DataValue DV = root.lookupDv(s);
+			DataValue DV = root.lookup(s);
 			
 			Set<String> setDoc = DV.getSetFileNames();					//set des documents contenant le mot s
 			HashMap<String,Integer> mapTf = DV.getStats().getMapTf();   //map des TF
@@ -221,8 +222,9 @@ public class GestionRequete {
 			num = num + d;
 			denom = denom + (d*d);
 		}
+		double tempo = (double) listeRequete.size();
 		if(denom!=0.0){
-			score=num/Math.sqrt(denom);
+			score=num/(Math.sqrt(denom) * tempo);
 		}else {
 			score=0.0;
 		}
@@ -237,7 +239,7 @@ public class GestionRequete {
 	 * @param root 
 	 * @return : la map non triée contenant tous les documents associée à la requete et leur score associé.
 	 */
-	public static HashMap<String, Double> CalculAllScore(String req,  TreeRepresentation root){
+	public static HashMap<String, Double> CalculAllScore(String req,  IndexWrapper root){
 		
 		//contient tous les documents contenant au moins un mots de la requete
 		Set<String> listeAllDocReq = new HashSet<String>();
@@ -245,8 +247,10 @@ public class GestionRequete {
 		List<String> listeRequete= new ArrayList<String>();
 		listeRequete = requeteSplit(req);
 		for(String s : listeRequete){
-			Set<String> listeDocReq = root.lookupDv(s).getSetFileNames();
-			listeAllDocReq.addAll(listeDocReq);
+			if(root.lookup(s)!=null){
+				Set<String> listeDocReq = root.lookup(s).getSetFileNames();
+				listeAllDocReq.addAll(listeDocReq);
+			}
 		}
 		
 		HashMap<String, Double> HM = new HashMap<String, Double>();
@@ -302,6 +306,7 @@ public class GestionRequete {
 		Iterator it = treeMap.entrySet().iterator();
 	    while (it.hasNext()) {
 	        Map.Entry pairs = (Map.Entry)it.next();
+	        System.out.println(pairs.getKey() + " " + pairs.getValue());
 	        listeString.add((String) pairs.getKey());
 
 	        it.remove();

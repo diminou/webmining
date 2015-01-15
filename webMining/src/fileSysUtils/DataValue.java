@@ -1,5 +1,6 @@
 package fileSysUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,8 +9,12 @@ import java.util.Set;
 
 import benoit.StatMot;
 
-public class DataValue {
+public class DataValue implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9006979490267160040L;
 	private String label;
 	private int nbFiles;
 	private Set<String> setFileNames;
@@ -61,24 +66,24 @@ public class DataValue {
 
 	// FIXME
 	private void updateLabel(String newLabel) {
-		System.out.println("DataValue.updateLabel");
-
-		System.out.println("updateLabel.newLabel : " + newLabel);
+//		System.out.println("DataValue.updateLabel");
+//
+//		System.out.println("updateLabel.newLabel : " + newLabel);
 		if (newLabel != null) {
 
-			System.out.println("this.label : " + this.label);
+//			System.out.println("this.label : " + this.label);
 			this.label = newLabel;
-			System.out.println("new label : " + newLabel);
-			System.out.println("new this.label : " + this.label);
+//			System.out.println("new label : " + newLabel);
+//			System.out.println("new this.label : " + this.label);
 		} else {
 			System.out.println("updateLabel : newLabel == null");
 		}
 
-		System.out.println("updateLevel finished" + System.lineSeparator());
+//		System.out.println("updateLevel finished" + System.lineSeparator());
 	}
 	
 	private void updateNbFiles(){
-		System.out.println("DV.updateNbFiles");
+//		System.out.println("DV.updateNbFiles");
 		if(this.setFileNames!=null){
 			this.nbFiles = this.setFileNames.size();
 		}
@@ -87,26 +92,26 @@ public class DataValue {
 	private void updateSetFileNames(Set<String> newSet){
 		if(newSet!= null){
 			if(this.setFileNames!=null){
-				System.out.println("old SFN : " + this.setFileNames.toString());
+//				System.out.println("old SFN : " + this.setFileNames.toString());
 				this.setFileNames.addAll(newSet);
 				this.updateNbFiles();
 			} else {
 				this.setFileNames = newSet;
 				this.updateNbFiles();
 			}
-			System.out.println("new SFN : " + this.setFileNames.toString());
+//			System.out.println("new SFN : " + this.setFileNames.toString());
 		}
 	}
 	
 	private void updateStats(StatMot sm){
 		if(sm != null){
 			if(this.stats != null){
-				System.out.println("old Stats : "+this.stats.toString());
+//				System.out.println("old Stats : "+this.stats.toString());
 				this.stats.update(sm);
 			} else {
 				this.stats = sm;
 			}
-			System.out.println("new Stats : " + this.stats.toString());
+//			System.out.println("new Stats : " + this.stats.toString());
 		}
 	}
 	
@@ -114,21 +119,20 @@ public class DataValue {
 
 	// FIXME
 	public void update(DataValue dv) {
-		System.out.println("DataValue.update");
+//		System.out.println("DataValue.update");
 		if (dv != null) {
-			System.out.println("update != null");
-			System.out.println("DV.update label : " + dv.label);
+//			System.out.println("update != null");
+//			System.out.println("DV.update label : " + dv.label);
 			
 			this.updateLabel(dv.label);
 			this.updateSetFileNames(dv.setFileNames);
 			this.updateStats(dv.stats);
-			System.err.println("Propre stats : "+this.stats.toString());
+//			System.err.println("Propre stats : "+this.stats.toString());
 		} else {
-			System.out.println("null DataValue as update data");
+//			System.out.println("null DataValue as update data");
 		}
 
-		System.out
-				.println("DataValue.update finished" + System.lineSeparator());
+//		System.out.println("DataValue.update finished" + System.lineSeparator());
 	}
 
 	public String toString() {
