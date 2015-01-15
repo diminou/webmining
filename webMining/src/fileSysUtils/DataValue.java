@@ -1,5 +1,6 @@
 package fileSysUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,8 +9,12 @@ import java.util.Set;
 
 import benoit.StatMot;
 
-public class DataValue {
+public class DataValue implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9006979490267160040L;
 	private String label;
 	private int nbFiles;
 	private Set<String> setFileNames;
