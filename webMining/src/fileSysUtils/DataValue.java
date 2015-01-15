@@ -121,9 +121,8 @@ public class DataValue {
 			
 			this.updateLabel(dv.label);
 			this.updateSetFileNames(dv.setFileNames);
-			this.updateNbFiles();
 			this.updateStats(dv.stats);
-			
+			System.err.println("Propre stats : "+this.stats.toString());
 		} else {
 			System.out.println("null DataValue as update data");
 		}

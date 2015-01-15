@@ -17,8 +17,8 @@ public class MainLocal {
     	System.out.println( sdf.format(cal.getTime()) );
     	IndexWrapper index = new IndexWrapper();
     	
-    	TreeRepresentation root=new TreeRepresentation("propre", null);
-		TreeRepresentation propre=TravailFichier.createIndex("proprietaire/",root);
+    	
+		TravailFichier.createIndex("proprietaire/",index);
 		
 		Calendar cal1 = Calendar.getInstance();
     	cal1.getTime();
@@ -26,9 +26,9 @@ public class MainLocal {
     	System.out.println( sdf1.format(cal1.getTime()) );
 		
     	//System.out.println(propre.lookup("propre"));
-    	System.out.println(propre.lookupDv("propre").getStats().toString());
+    	System.out.println(index.lookup("propre").getStats().toString());
     	
-    	GestionRequete.printMap(GestionRequete.classerDocument(GestionRequete.CalculAllScore("propre", propre)));
+    	//GestionRequete.printMap(GestionRequete.classerDocument(GestionRequete.CalculAllScore("propre", index)));
     	
 	}
 
