@@ -25,6 +25,8 @@ import org.codehaus.jackson.JsonStreamContext;
 import org.codehaus.jackson.ObjectCodec;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+
+import benoit.TravailFichier;
 /**
  * @author divanov
  *
@@ -54,7 +56,7 @@ public class IndexWrapper {
 
 
 	public IndexWrapper() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public void insert(String label, DataValue dv) {

@@ -15,9 +15,12 @@ import benoit.TravailFichier;
 
 public class MainForestier {
 
+	static IndexWrapper index = new IndexWrapper();
 	public static void main(String[] args) throws IOException {
 		
-		IndexWrapper index = new IndexWrapper();
+		BackgroundUpdater bu = new BackgroundUpdater();
+		
+		
 		
 		/*index.insert("naturisme", null);
 		
@@ -88,24 +91,27 @@ public class MainForestier {
 		index.serializeRoot();
 		System.out.println("serialize");*/
 		
-		try {
+		
+		
+		
+		/*TravailFichier.createIndexStemming("./corpus/", index);
+		index.serializeRoot();*/
+		
+		TravailFichier.createIndexStemming("./corpus/", index);
+		index.serializeRoot();
+		
+		
+		/*try {
 			index.deserializeRoot();
 			System.out.println("deserialize");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		System.out.println(index.toString());
-		
-		
-		//TravailFichier.createIndex("./corpus/", index);
-		//index.serializeRoot();
-		
-		
-		
-		
-		
+		System.out.println(index.lookup("lienne").getSetFileNames().toString());
+		System.out.println(index.lookup("lienne").getStats().toString());
 		/*ObjectMapper mapper = new ObjectMapper();
 	 
 		try {
