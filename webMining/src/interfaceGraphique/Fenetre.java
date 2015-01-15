@@ -28,11 +28,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import benoit.TravailFichier;
+import fileSysUtils.IndexWrapper;
 import quentin.GestionRequete;
 
 public class Fenetre extends JFrame {
 
 	private JButton bouton = new JButton("Rechercher");
+	private JButton boutonCreateIndex = new JButton("Créer l'index");
 	private JTextField jtf = new JTextField();
 	private JPanel containerGlobal = new JPanel();
 	private JPanel container = new JPanel();
@@ -98,7 +101,31 @@ public class Fenetre extends JFrame {
 				repaint();
 			}
 		});
+		
+		
+		boutonCreateIndex.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			  	IndexWrapper index = new IndexWrapper();
+		    	
+				try {
+					TravailFichier.createIndex("proprietaire/",index);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				repaint();
+				
+			}
+		});
+		
+		
+		
+		
 		top.add(bouton);
+		top.add(boutonCreateIndex);
 		top.setBackground(Color.white);
 		containerGlobal.setBackground(Color.white);
 		container.setBackground(Color.white);
