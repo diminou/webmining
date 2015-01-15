@@ -33,9 +33,14 @@ public class MainLocal {
 //    	System.out.println(index.lookup("propre.").getStats().toString());
 //    	
 //    	//GestionRequete.printMap(GestionRequete.classerDocument(GestionRequete.CalculAllScore("propre", index)));
-		List<String> listMotsFile=TravailFichier.listerMotsStem("corpus/texte.95-1.txt");
-		System.out.println(listMotsFile);
+//		List<String> listMotsFile=TravailFichier.listerMotsStem("corpus/texte.95-1.txt");
+//		System.out.println(listMotsFile);
+    	IndexWrapper index = new IndexWrapper();
     	
+//    	System.out.println(TravailFichier.listerMotsStem("corpus/texte.95-10.txt"));
+
+		TravailFichier.createIndexStemming("./corpus/", index);
+		index.serializeRoot();
 	}
 
 }
