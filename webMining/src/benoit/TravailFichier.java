@@ -336,7 +336,7 @@ public class TravailFichier {
 	  		for(String s:listMotsFile){
 	  			
 	  			if(s.length()>1){
-	  				System.out.println(s+s.length());
+	  				
 	  			// Initialisation des "label" et "DataValue" à envoyer ensuite
 		  			String labelMotCourant=s;
 		  			DataValue dataValueMotCourant=new DataValue();
