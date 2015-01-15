@@ -38,21 +38,6 @@ public class IndexWrapper {
 	 */
 	private static TreeRepresentation root = null;
 	
-	
-	private ObjectMapper mapper = new ObjectMapper(){
-	 
-
-		//JsonNode node = mapper.valueToTree(IndexWrapper.root);
-		
-		// convert user object to json string, and save to a file
-		//mapper.writeTree(new File("./index/test.json"), node);
-		//mapper.writeTree(new JsonGenerator, indexNode);
- 
-		// display to console
-		//System.out.println(mapper.writeValueAsString(index));
- 
-		
-	};
 
 
 	public IndexWrapper() {
@@ -84,29 +69,6 @@ public class IndexWrapper {
 		return root.toString();
 	}
 	
-	
-	/*ObjectMapper m = new ObjectMapper();
-	// can either use mapper.readTree(source), or mapper.readValue(source, JsonNode.class);
-	JsonNode rootNode = m.readTree(new File("user.json"));
-	// ensure that "last name" isn't "Xmler"; if is, change to "Jsoner"
-	JsonNode nameNode = rootNode.path("name");
-	String lastName = nameNode.path("last").getTextValue().
-	if ("xmler".equalsIgnoreCase(lastName)) {
-	  ((ObjectNode)nameNode).put("last", "Jsoner");
-	}
-	// and write it out:
-	m.writeValue(new File("user-modified.json"), rootNode);*/
-	
-	/*TreeMapper treeMapper = new TreeMapper();
-	ObjectNode userOb = treeMapper.objectNode();
-	Object nameOb = userRoot.putObject("name");
-	nameOb.put("first", "Joe");
-	nameOb.put("last", "Sixpack");
-	userOb.put("gender", User.Gender.MALE.toString());
-	userOb.put("verified", false);
-	byte[] imageData = getImageData(); // or wherever it comes from
-	userOb.put("userImage", imageData);*/
-
 	
 	public void serializeRoot() throws IOException{
 		
