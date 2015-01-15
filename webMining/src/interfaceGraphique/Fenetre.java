@@ -41,6 +41,7 @@ public class Fenetre extends JFrame {
 	private JPanel container = new JPanel();
 	private JPanel resultatContainer = new JPanel();
 
+	final static IndexWrapper index = new IndexWrapper();
 	public Fenetre() {
 
 		Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit()
@@ -77,6 +78,7 @@ public class Fenetre extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					resultatContainer.removeAll();
 					Rechercher(jtf.getText(), getParent(), resultatContainer);
 					containerGlobal.remove(resultatContainer);
 					containerGlobal.add(resultatContainer);
@@ -94,6 +96,7 @@ public class Fenetre extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				resultatContainer.removeAll();
 				Rechercher(jtf.getText(), getParent(), resultatContainer);
 				containerGlobal.remove(resultatContainer);
 				containerGlobal.add(resultatContainer);
@@ -102,15 +105,14 @@ public class Fenetre extends JFrame {
 			}
 		});
 		
-		
 		boutonCreateIndex.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			  	IndexWrapper index = new IndexWrapper();
+			  
 		    	
 				try {
-					TravailFichier.createIndex("proprietaire/",index);
+					TravailFichier.createIndex("corpus/",index);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -148,22 +150,33 @@ public class Fenetre extends JFrame {
 	public static void Rechercher(String textChamp, Container p, JPanel jp) {
 		if (!(textChamp.equals(""))) {
 			
+			//TODO vérif si cliquage createindex avt 
+			
+			
 			jp.repaint();
 			System.out.println("You clicked the button " + textChamp);
 			
 			
 			List<String> l = new ArrayList<String>();
 
-			//TODO remplacer par la liste des noms des Docs pertinents
-			//TODO remplacer root 
-		
-//			HashMap<String, Double> HM = GestionRequete.CalculAllScore(textChamp, root);
-			HashMap<String, Double> HM = new HashMap<String, Double>();
-			HM.put("trois", 3.0);
-			HM.put("deux", 2.0);
-			HM.put("quatre", 4.0);
-			HM.put("un", 1.0);
-			HM.put("cinq", 5.0);
+			//TODO remplacer index 
+			//TODO IndexWrapper index = Méhode diminou 
+			
+//			IndexWrapper index = new IndexWrapper();
+//			try {
+//				TravailFichier.createIndex("corpus/",index);
+//			} catch (IOException e2) {
+//				// TODO Auto-generated catch block
+//				e2.printStackTrace();
+//			}
+			HashMap<String, Double> HM = GestionRequete.CalculAllScore(textChamp, index);
+//			HashMap<String, Double> HM = new HashMap<String, Double>();
+//			HM.put("trois", 3.0);
+//			HM.put("deux", 2.0);
+//			HM.put("quatre", 4.0);
+//			HM.put("un", 1.0);
+//			HM.put("cinq", 5.0);
+			
 			TreeMap<String, Double>  treeMap = GestionRequete.classerDocument(HM);
 			l= GestionRequete.mapKeyToListe(treeMap);
 			
@@ -199,8 +212,8 @@ public class Fenetre extends JFrame {
 					Desktop desk = Desktop.getDesktop();
 					
 					//TODO à remplacer par le bon document
-//						File f = new File(table.getValueAt(rowIndex, 0).toString());
-						File f = new File("results/texte.95-1.txt");
+						File f = new File(table.getValueAt(rowIndex, 0).toString());
+//						File f = new File("results/texte.95-1.txt");
 						f.setWritable(false);
 						f.setExecutable(false);
 						f.setReadable(true);
