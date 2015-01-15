@@ -184,7 +184,13 @@ public class GestionRequete {
 	public static double calculScoreDoc(String req, Integer nomDoc,  IndexWrapper root){
 		double score=0;
 		List<String> listeRequete= new ArrayList<String>();
-		listeRequete = requeteSplit(req);
+		try {
+			listeRequete = requeteStem(req);
+			System.out.println(listeRequete);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 		double num=0.0;
 		double denom = 0.0;
@@ -245,7 +251,13 @@ public class GestionRequete {
 		Set<Integer> listeAllDocReq = new HashSet<Integer>();
 		
 		List<String> listeRequete= new ArrayList<String>();
-		listeRequete = requeteSplit(req);
+		try {
+			listeRequete = requeteStem(req);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		for(String s : listeRequete){
 			if(root.lookup(s)!=null){
 				Set<Integer> listeDocReq = root.lookup(s).getSetFileNames();

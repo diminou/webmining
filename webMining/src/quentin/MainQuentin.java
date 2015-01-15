@@ -31,7 +31,8 @@ public class MainQuentin {
 		
 		Fenetre f = new Fenetre();
 			
-																																																										
+//			String s = "à";
+//			System.out.println(s.length() + "");
 	}
 
 }	

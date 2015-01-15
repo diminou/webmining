@@ -113,7 +113,7 @@ public class Fenetre extends JFrame {
 			  
 		    	
 				try {
-					TravailFichier.createIndex("corpus/",index);
+					TravailFichier.createIndexStemming("./corpus/",index);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -182,7 +182,7 @@ public class Fenetre extends JFrame {
 			List<Integer> lint = new ArrayList<Integer>();
 			lint= GestionRequete.mapKeyToListe(treeMap);
 			
-			HashMap<String,Integer> mapIndexFileNumber=TravailFichier.createIndexNumberDocs("/corpus");
+			HashMap<String,Integer> mapIndexFileNumber=TravailFichier.createIndexNumberDocs("corpus/");
 			
 			
 			
@@ -190,9 +190,9 @@ public class Fenetre extends JFrame {
 				
 				java.util.Iterator<String> i=mapIndexFileNumber.keySet().iterator();
 				while(i.hasNext()){
-				
-					if(aaa==mapIndexFileNumber.get(i.next())){
-						l.add(i.next());
+				String str= i.next();
+					if(aaa==mapIndexFileNumber.get(str)){
+						l.add(str);
 						break;
 					}
 				}
