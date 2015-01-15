@@ -16,13 +16,14 @@ import benoit.TravailFichier;
 public class MainForestier {
 
 	static IndexWrapper index = new IndexWrapper();
-	public static void main(String[] args) throws IOException {
+	static BackgroundUpdater bu1 = new BackgroundUpdater();
+	/*public static void main(String[] args) throws IOException {
 		
-		BackgroundUpdater bu = new BackgroundUpdater();
+		//BackgroundUpdater bu = new BackgroundUpdater();
 		
 		
 		
-		/*index.insert("naturisme", null);
+		index.insert("naturisme", null);
 		
 		index.insert("boloss", null);
 		
@@ -89,30 +90,30 @@ public class MainForestier {
 		System.out.println(testDv.getLabel());
 		
 		index.serializeRoot();
-		System.out.println("serialize");*/
+		System.out.println("serialize");
 		
 		
 		
 		
-		/*TravailFichier.createIndexStemming("./corpus/", index);
-		index.serializeRoot();*/
+		TravailFichier.createIndexStemming("./corpus/", index);
+		index.serializeRoot();
 		
 		TravailFichier.createIndexStemming("./corpus/", index);
 		index.serializeRoot();
 		
 		
-		/*try {
+		try {
 			index.deserializeRoot();
 			System.out.println("deserialize");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		System.out.println(index.toString());
 		System.out.println(index.lookup("lienne").getSetFileNames().toString());
 		System.out.println(index.lookup("lienne").getStats().toString());
-		/*ObjectMapper mapper = new ObjectMapper();
+		ObjectMapper mapper = new ObjectMapper();
 	 
 		try {
 	 
@@ -137,8 +138,8 @@ public class MainForestier {
 	 
 			e.printStackTrace();
 	 
-		}*/
+		}
 
-	}
+	}*/
 
 }
