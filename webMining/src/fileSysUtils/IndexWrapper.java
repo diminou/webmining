@@ -5,7 +5,13 @@ package fileSysUtils;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -29,6 +35,7 @@ public class IndexWrapper {
 	 * 
 	 */
 	private static TreeRepresentation root = null;
+	
 	
 	private ObjectMapper mapper = new ObjectMapper(){
 	 
@@ -99,292 +106,21 @@ public class IndexWrapper {
 	userOb.put("userImage", imageData);*/
 
 	
-	public void serializeRoot(){
-		JsonNode node = mapper.valueToTree(IndexWrapper.root);
-		try {
-			this.mapper.writeTree(new JsonGenerator(){
-
-				@Override
-				public void close() throws IOException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void copyCurrentEvent(JsonParser arg0)
-						throws IOException, JsonProcessingException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void copyCurrentStructure(JsonParser arg0)
-						throws IOException, JsonProcessingException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public JsonGenerator disable(Feature arg0) {
-					// TODO Auto-generated method stub
-					return null;
-				}
-
-				@Override
-				public JsonGenerator enable(Feature arg0) {
-					// TODO Auto-generated method stub
-					return null;
-				}
-
-				@Override
-				public void flush() throws IOException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public ObjectCodec getCodec() {
-					// TODO Auto-generated method stub
-					return null;
-				}
-
-				@Override
-				public JsonStreamContext getOutputContext() {
-					// TODO Auto-generated method stub
-					return null;
-				}
-
-				@Override
-				public boolean isClosed() {
-					// TODO Auto-generated method stub
-					return false;
-				}
-
-				@Override
-				public boolean isEnabled(Feature arg0) {
-					// TODO Auto-generated method stub
-					return false;
-				}
-
-				@Override
-				public JsonGenerator setCodec(ObjectCodec arg0) {
-					// TODO Auto-generated method stub
-					return null;
-				}
-
-				@Override
-				public JsonGenerator useDefaultPrettyPrinter() {
-					// TODO Auto-generated method stub
-					return null;
-				}
-
-				@Override
-				public void writeBinary(Base64Variant arg0, byte[] arg1,
-						int arg2, int arg3) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeBoolean(boolean arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeEndArray() throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeEndObject() throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeFieldName(String arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeNull() throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeNumber(int arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeNumber(long arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeNumber(BigInteger arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeNumber(double arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeNumber(float arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeNumber(BigDecimal arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeNumber(String arg0) throws IOException,
-						JsonGenerationException, UnsupportedOperationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeObject(Object arg0) throws IOException,
-						JsonProcessingException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeRaw(String arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeRaw(char arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeRaw(String arg0, int arg1, int arg2)
-						throws IOException, JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeRaw(char[] arg0, int arg1, int arg2)
-						throws IOException, JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeRawUTF8String(byte[] arg0, int arg1, int arg2)
-						throws IOException, JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeRawValue(String arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeRawValue(String arg0, int arg1, int arg2)
-						throws IOException, JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeRawValue(char[] arg0, int arg1, int arg2)
-						throws IOException, JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeStartArray() throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeStartObject() throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeString(String arg0) throws IOException,
-						JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeString(char[] arg0, int arg1, int arg2)
-						throws IOException, JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeTree(JsonNode arg0) throws IOException,
-						JsonProcessingException {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void writeUTF8String(byte[] arg0, int arg1, int arg2)
-						throws IOException, JsonGenerationException {
-					// TODO Auto-generated method stub
-					
-				}}, node);
-			this.mapper.writeValue(new File("./index/index.json"), node);
-		} catch (JsonGenerationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void serializeRoot() throws IOException{
+		
+		OutputStream f = new FileOutputStream("./index/index.ser");
+		ObjectOutputStream out = new ObjectOutputStream(f);
+		out.writeObject(root);
+		out.close();
+		f.close();
+	}
+	
+	public void deserializeRoot() throws IOException, ClassNotFoundException{
+		 FileInputStream fileIn = new FileInputStream("./index/index.ser");
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+         IndexWrapper.root = (TreeRepresentation) in.readObject();
+         in.close();
+         fileIn.close();
 	}
 
 }

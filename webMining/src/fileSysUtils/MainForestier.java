@@ -18,7 +18,8 @@ public class MainForestier {
 	public static void main(String[] args) throws IOException {
 		
 		IndexWrapper index = new IndexWrapper();
-		index.insert("naturisme", null);
+		
+		/*index.insert("naturisme", null);
 		
 		index.insert("boloss", null);
 		
@@ -38,10 +39,10 @@ public class MainForestier {
 		
 		
 		
-		/*private String label;
+		private String label;
 		private int nbFiles;
 		private Set<String> setFileNames;
-		private StatMot stats;*/
+		private StatMot stats;
 		
 
 		DataValue dv0 = new DataValue("lab0", 0, new HashSet<String>(), new StatMot());
@@ -85,9 +86,21 @@ public class MainForestier {
 		System.out.println(testDv.getLabel());
 		
 		index.serializeRoot();
+		System.out.println("serialize");*/
+		
+		try {
+			index.deserializeRoot();
+			System.out.println("deserialize");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(index.toString());
 		
 		
-		//TravailFichier.createIndex("./corpus/");
+		//TravailFichier.createIndex("./corpus/", index);
+		//index.serializeRoot();
 		
 		
 		
