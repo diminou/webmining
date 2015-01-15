@@ -218,7 +218,13 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 	}
 
 	public DataValue lookupDv(String key) {
-		return (this.lookup(key)).getData();
+		TreeRepresentation tr = this.lookup(key);
+		if (tr != null) {
+			return tr.getData();
+		} else {
+			return null;
+		}
+
 	}
 
 	private void updateData(TreeRepresentation tr) {
@@ -238,7 +244,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 			}
 
 		}
-		
+
 		System.out.println("updataData finished" + System.lineSeparator());
 
 	}
@@ -263,12 +269,12 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 			}
 
 		} else if (tr.compareToIgnoreCase(this) == 0) {
-			if(this.data!= null){
+			if (this.data != null) {
 				this.data.update(tr.data);
 			} else {
 				this.data = tr.data;
 			}
-			
+
 			System.err.println("update");
 		}
 
