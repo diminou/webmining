@@ -124,26 +124,15 @@ public class TravailFichier {
     }
     
     /**
-     * Retourne la List<String> des mots setmmatisés d'un fichier
+     * Retourne la List<String> des mots stemmatisés d'un fichier
      * @param filename
      * @return
      * @throws IOException
      */
      public static List<String> listerMotsStem(String filename) throws IOException{
      	ArrayList<String> text = new ArrayList<String>();
- 		//lecture du fichier texte	
- 		InputStream ips=new FileInputStream(filename); 
- 		InputStreamReader ipsr=new InputStreamReader(ips);
- 		BufferedReader br=new BufferedReader(ipsr);
- 		String line;
- 		while ((line=br.readLine())!=null){
- 			
- 			String[] ligneTemp=line.split(" ");
- 			for (int i=0 ; i<ligneTemp.length ; i++){
- 			text.addAll((new FrenchStemmer()).normalize(ligneTemp[i]));
- 			}
- 		}
- 		br.close(); 
+ 		File file=new File(filename);
+ 		text=(new FrenchStemmer()).normalize(file);
  		return text;
      }
 
