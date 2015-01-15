@@ -312,10 +312,103 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 		}
 
 	}
+	
 
 	public void insert(String value, DataValue data) {
 		TreeRepresentation tr = new TreeRepresentation(value, data);
 		this.insert(tr);
+	}
+	
+	public void delete(String value){
+		TreeRepresentation tr = this.lookup(value);
+		if(tr!= null){
+			if(tr.leftChild == null && tr.rightChild == null){
+				TreeRepresentation tp = tr.parent;
+				if(tr.parent !=  null){
+					boolean left = tr.parent.leftChild == tr;
+					if(left){
+						tr.parent.leftChild = null;
+						tr = null;
+					} else {
+						tr.parent.rightChild = null;
+						tr = null;
+					}
+					tp.rebalanceInsertion();
+				} else {
+					tr = null;
+				}
+			} else if(tr.leftChild == null && tr.rightChild != null){
+				TreeRepresentation tp = tr.parent;
+				if(tr.parent != null){
+					boolean left = tr.parent.leftChild == tr;
+					if(left){
+						tr.parent.leftChild = tr.rightChild;
+						tr.rightChild.parent = tr.parent;
+						tr = null;
+					} else {
+						tr.parent.rightChild = tr.rightChild;
+						tr.rightChild.parent = tr.parent;
+						tr = null;
+					}
+					tp.rebalanceInsertion();
+				}
+			} else if(tr.leftChild != null && tr.rightChild == null){
+				TreeRepresentation tp = tr.parent;
+				if(tr.parent != null){
+					boolean left = tr.parent.leftChild == tr;
+					if(left){
+						tr.parent.leftChild = tr.leftChild;
+						tr.leftChild.parent = tr.parent;
+						tr = null;
+					} else {
+						tr.parent.rightChild = tr.leftChild;
+						tr.leftChild.parent = tr.parent;
+						tr = null;
+					}
+					tp.rebalanceInsertion();
+				}
+			} else {
+				TreeRepresentation newTr = tr.largestLeft();
+				TreeRepresentation newTrChild = tr.leftChild;
+				TreeRepresentation newTrParent = tr.parent;
+				tr.value = newTr.value;
+				tr.data = newTr.data;
+				if(newTrParent != null){
+					boolean left = newTrParent.leftChild == newTr;
+					if(left){
+						newTrParent.leftChild = newTrChild;
+						if(newTrParent.leftChild!=null){
+							newTrParent.leftChild.parent = newTrParent;
+						}
+					} else {
+						newTrParent.rightChild = newTrChild;
+						if(newTrParent.rightChild!=null){
+							newTrParent.rightChild.parent = newTrParent;
+						}
+					}
+					newTrParent.rebalanceInsertion();
+				}
+				
+			}
+			
+			
+		}
+	}
+	
+	private TreeRepresentation largestLeft(){
+		if(this.leftChild != null){
+			return this.leftChild.largest();
+		} else {
+			return this;
+		}
+	}
+	
+	private TreeRepresentation largest(){
+		if(this.rightChild != null){
+			return this.rightChild.rightChild.largest();
+		} else {
+			return this;
+		}
 	}
 
 	public String toString() {
