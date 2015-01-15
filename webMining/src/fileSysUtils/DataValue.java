@@ -15,7 +15,6 @@ public class DataValue implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 9006979490267160040L;
-	private String label;
 	private int nbFiles;
 	private Set<String> setFileNames;
 	private StatMot stats;
@@ -26,19 +25,11 @@ public class DataValue implements Serializable {
 	
 	public DataValue(String label, int nbFiles, Set<String> setFileNames, StatMot stats){
 		super();
-		this.label = label;
 		this.nbFiles = nbFiles;
 		this.setFileNames = setFileNames;
 		this.stats = stats;
 	}
 
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
 
 	public int getNbFiles() {
 		return nbFiles;
@@ -64,23 +55,23 @@ public class DataValue implements Serializable {
 		this.stats = stats;
 	}
 
-	// FIXME
-	private void updateLabel(String newLabel) {
-//		System.out.println("DataValue.updateLabel");
+//	// FIXME
+//	private void updateLabel(String newLabel) {
+////		System.out.println("DataValue.updateLabel");
+////
+////		System.out.println("updateLabel.newLabel : " + newLabel);
+//		if (newLabel != null) {
 //
-//		System.out.println("updateLabel.newLabel : " + newLabel);
-		if (newLabel != null) {
-
-//			System.out.println("this.label : " + this.label);
-			this.label = newLabel;
-//			System.out.println("new label : " + newLabel);
-//			System.out.println("new this.label : " + this.label);
-		} else {
-			System.out.println("updateLabel : newLabel == null");
-		}
-
-//		System.out.println("updateLevel finished" + System.lineSeparator());
-	}
+////			System.out.println("this.label : " + this.label);
+//			this.label = newLabel;
+////			System.out.println("new label : " + newLabel);
+////			System.out.println("new this.label : " + this.label);
+//		} else {
+//			System.out.println("updateLabel : newLabel == null");
+//		}
+//
+////		System.out.println("updateLevel finished" + System.lineSeparator());
+//	}
 	
 	private void updateNbFiles(){
 //		System.out.println("DV.updateNbFiles");
@@ -124,7 +115,7 @@ public class DataValue implements Serializable {
 //			System.out.println("update != null");
 //			System.out.println("DV.update label : " + dv.label);
 			
-			this.updateLabel(dv.label);
+			//this.updateLabel(dv.label);
 			this.updateSetFileNames(dv.setFileNames);
 			this.updateStats(dv.stats);
 //			System.err.println("Propre stats : "+this.stats.toString());
@@ -136,7 +127,7 @@ public class DataValue implements Serializable {
 	}
 
 	public String toString() {
-		String result = "label = " + label + System.lineSeparator()
+		String result = System.lineSeparator()
 				+ "nbFiles = " + nbFiles;
 		return result;
 	}

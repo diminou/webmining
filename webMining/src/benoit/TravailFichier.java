@@ -268,7 +268,7 @@ public class TravailFichier {
     			DataValue dataValueMotCourant=new DataValue();
     			
     			// Remplissage de la "DataValue"
-    			dataValueMotCourant.setLabel(labelMotCourant);
+//    			dataValueMotCourant.setLabel(labelMotCourant);
     			dataValueMotCourant.setNbFiles(1);
     			
     			Set<String> setFileName=new HashSet<String>();
@@ -313,12 +313,13 @@ public class TravailFichier {
 	  		for(String s:listMotsFile){
 	  			
 	  			if(s.length()>1){
+	  				System.out.println(s+s.length());
 	  			// Initialisation des "label" et "DataValue" à envoyer ensuite
 		  			String labelMotCourant=s;
 		  			DataValue dataValueMotCourant=new DataValue();
 		  			
 		  			// Remplissage de la "DataValue"
-		  			dataValueMotCourant.setLabel(labelMotCourant);
+//		  			dataValueMotCourant.setLabel(labelMotCourant);
 		  			dataValueMotCourant.setNbFiles(1);
 		  			
 		  			Set<String> setFileName=new HashSet<String>();
@@ -369,7 +370,7 @@ public class TravailFichier {
     			DataValue dataValueMotCourant=new DataValue();
     			
     			// Remplissage de la "DataValue"
-    			dataValueMotCourant.setLabel(labelMotCourant);
+//    			dataValueMotCourant.setLabel(labelMotCourant);
     			dataValueMotCourant.setNbFiles(1);
     			
     			Set<String> setFileName=new HashSet<String>();
