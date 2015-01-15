@@ -1,7 +1,9 @@
 package benoit;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 
 
@@ -57,6 +59,36 @@ public class StatMot {
 	public StatMot(HashMap<String, Integer> mapTf) {
 		super();
 		this.mapTf = mapTf;
+	}
+	
+	//FIXME
+	public void update(StatMot sm){
+		HashMap<String, Integer> ancienneMapTf = this.getMapTf();
+		HashMap<String, Integer> nouvMapTf = sm.getMapTf();
+		
+		List<String> listeFiles=new ArrayList<String>();
+		
+		// On récupère la liste des files de la nouvelle map
+		for (Iterator<String> i = nouvMapTf.keySet().iterator() ; i.hasNext() ; ){
+		    listeFiles.add(i.next()); 
+		}
+
+		// On parcourt les fileNames pour modifier les stats de la hashmap
+		for(String fileName : listeFiles){
+			
+			// Si le fichier a déjà été ajouté comme présent dans ce document : on incrémente
+			if(ancienneMapTf.containsKey(fileName)){
+				Integer tfMotCourant = ancienneMapTf.get(fileName);
+				ancienneMapTf.put(fileName,	tfMotCourant + 1);
+			}
+			// Si le fichier n'a jamais été ajouté comme présent dans ce document : on ajoute
+			else{
+				ancienneMapTf.put(fileName,	1);
+			}
+		}
+		// Mise à jour de l'ancienne mapTf
+		setMapTf(ancienneMapTf);
+		
 	}
 	
 	
