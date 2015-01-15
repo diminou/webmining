@@ -440,7 +440,8 @@ public class TravailFichier {
     	
     	Iterator i=hashMapDoc.keySet().iterator();
     	while(i.hasNext()){
-    		res=res+hashMapDoc.get(i.next())*hashMapDoc.get(i.next());
+    		String S = (String) i.next();
+    		res=res+hashMapDoc.get(S)*hashMapDoc.get(S);
     	}
     	
     	return (Math.sqrt(res));

@@ -8,6 +8,10 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import benoit.HashMapWrapDouble;
+import benoit.HashMapWrapper;
+import benoit.TravailFichier;
+
 public class MainQuentin {
 
 	public static void main(String[] args) throws IOException {
@@ -29,10 +33,43 @@ public class MainQuentin {
 //		hm.put("b", 12.0);
 //		System.out.println(GestionRequete.classerDocument(hm));
 		
-		Fenetre f = new Fenetre();
+//		Fenetre f = new Fenetre();
 			
-//			String s = "à";
-//			System.out.println(s.length() + "");
+//		HashMap<String, Integer> hm = TravailFichier.createIndexNumberDocs("./corpus/");
+//		HashMapWrapper hmw = new HashMapWrapper();
+//		
+//		
+//		hmw.setHM(hm);
+//		
+//		hmw.serializeHM();
+//		try {
+//			hmw.deserializeHM();
+//			
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println(hmw.toString());
+		
+		
+		HashMap<String, Double> hm = TravailFichier.createIndexDocs("./corpus/").getMapDocs();
+
+		HashMapWrapDouble hmw = new HashMapWrapDouble();
+		
+		
+	//		hmw.setHM(hm);
+	//		
+	//		hmw.serializeHM();
+		try {
+			hmw.deserializeHM();
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(hmw.toString());
 	}
 
 }	
