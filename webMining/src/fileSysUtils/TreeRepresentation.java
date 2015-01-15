@@ -200,9 +200,9 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 	public TreeRepresentation lookup(String value) {
 		TreeRepresentation temp = new TreeRepresentation(value, null);
-		if (temp.compareTo(this) == 0) {
+		if (temp.compareToIgnoreCase(this) == 0) {
 			return this;
-		} else if (temp.compareTo(this) < 0) {
+		} else if (temp.compareToIgnoreCase(this) < 0) {
 			if (this.getLeftChild() != null) {
 				return this.leftChild.lookup(value);
 			} else {
@@ -245,7 +245,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 
 	protected void insert(TreeRepresentation tr) {
 
-		if (tr.compareTo(this) > 0) {
+		if (tr.compareToIgnoreCase(this) > 0) {
 			if (this.rightChild == null) {
 				this.rightChild = tr;
 				tr.parent = this;
@@ -253,7 +253,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 			} else {
 				this.rightChild.insert(tr);
 			}
-		} else if (tr.compareTo(this) < 0) {
+		} else if (tr.compareToIgnoreCase(this) < 0) {
 			if (this.leftChild == null) {
 				this.leftChild = tr;
 				tr.parent = this;
@@ -262,7 +262,7 @@ public class TreeRepresentation implements Comparable<TreeRepresentation>,
 				this.leftChild.insert(tr);
 			}
 
-		} else if (tr.compareTo(this) == 0) {
+		} else if (tr.compareToIgnoreCase(this) == 0) {
 			if(this.data!= null){
 				this.data.update(tr.data);
 			} else {
