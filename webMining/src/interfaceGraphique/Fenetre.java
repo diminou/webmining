@@ -29,6 +29,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import benoit.HashMapWrapDouble;
+import benoit.HashMapWrapper;
 import benoit.TravailFichier;
 import fileSysUtils.IndexWrapper;
 import quentin.GestionRequete;
@@ -43,6 +45,8 @@ public class Fenetre extends JFrame {
 	private JPanel resultatContainer = new JPanel();
 
 	final static IndexWrapper index = new IndexWrapper();
+	final static HashMapWrapper hmw = new HashMapWrapper();
+	final static HashMapWrapDouble hmwDouble = new HashMapWrapDouble();
 	public Fenetre() {
 
 		Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit()
@@ -114,6 +118,19 @@ public class Fenetre extends JFrame {
 		    	
 				try {
 					TravailFichier.createIndexStemming("./corpus/",index);
+					index.serializeRoot();
+					
+					
+					HashMap<String, Integer> hm = TravailFichier.createIndexNumberDocs("./corpus/");
+					hmw.setHM(hm);
+					hmw.serializeHM();
+					
+					HashMap<String, Double> hmDouble = TravailFichier.createIndexDocs("./corpus/").getMapDocs();
+					hmwDouble.setHM(hmDouble);
+					hmw.serializeHM();
+					
+					
+					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -170,7 +187,9 @@ public class Fenetre extends JFrame {
 //				// TODO Auto-generated catch block
 //				e2.printStackTrace();
 //			}
-			HashMap<Integer, Double> HM = GestionRequete.CalculAllScore(textChamp, index);
+//			hmw.deserializeHM();
+			
+			HashMap<Integer, Double> HM = GestionRequete.CalculAllScore(textChamp, index, hmwDouble, hmw);
 //			HashMap<String, Double> HM = new HashMap<String, Double>();
 //			HM.put("trois", 3.0);
 //			HM.put("deux", 2.0);

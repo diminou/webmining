@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import fileSysUtils.IndexWrapper;
@@ -22,7 +23,16 @@ public class HashMapWrapper {
 
 	public HashMapWrapper() {
 		super();
+		try {
+			this.deserializeHM();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 	}
+	
+	
 
 	public void setHM(HashMap<String, Integer> hashmap) {
 		hm = hashmap;
@@ -32,18 +42,20 @@ public class HashMapWrapper {
 		return hm.get(s);
 	}
 
-//	public String lookInt(int integ) {
-//		String S = "";
-//		List<Integer> liste = new ArrayList<Integer>();
-//		liste = (List<Integer>) hm.values();
-//		for (int i = 0; i < liste.size(); i++) {
-//			if (liste.get(i) == integ) {
-//				List<String> listeString = new ArrayList<String>();
-//				S = listeString.get(i);
-//			}
-//		}
-//		return S;
-//	}
+	public String lookInt(int integ) {
+		String S = "";
+		
+		Iterator i= hm.keySet().iterator();
+		while(i.hasNext()){
+			String str = (String) i.next();
+			if(hm.get(str)==integ){
+				S= str;
+			}
+		}
+		
+		
+		return S;
+	}
 
 	public String toString() {
 		return hm.toString();

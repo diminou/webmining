@@ -15,14 +15,20 @@ public class HashMapWrapDouble {
 
 		public HashMapWrapDouble() {
 			super();
+			try {
+				this.deserializeHM();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
+		
 		public void setHM(HashMap<String, Double> hashmap) {
 			hm = hashmap;
 		}
 
 		public double lookString(String s) {
-			return hm.get(s);
+			return (hm.get(s));
 		}
 
 //		public String lookInt(int integ) {

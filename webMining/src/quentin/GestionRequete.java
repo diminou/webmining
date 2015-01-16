@@ -14,6 +14,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import benoit.HashMapWrapDouble;
+import benoit.HashMapWrapper;
+import benoit.TravailFichier;
 import tools.FrenchStemmer;
 import fileSysUtils.DataValue;
 import fileSysUtils.IndexWrapper;
@@ -181,7 +184,8 @@ public class GestionRequete {
 	 * @param root
 	 * @return Le score du document associé à la requete
 	 */
-	public static double calculScoreDoc(String req, Integer nomDoc,  IndexWrapper root){
+	public static double calculScoreDoc(String req, Integer nomDoc,  IndexWrapper root, HashMapWrapDouble hmwDouble,
+			HashMapWrapper hmw){
 		double score=0;
 		List<String> listeRequete= new ArrayList<String>();
 		try {
@@ -226,11 +230,27 @@ public class GestionRequete {
 		
 		for(Double d : listeOccurence){
 			num = num + d;
-			denom = denom + (d*d);
 		}
+
+
+//		String stringNomDoc = "";
+//		
+//		Iterator iter = hmInt.keySet().iterator();
+//		while(iter.hasNext()){
+//			String strTempo = (String) iter.next();
+//			if(nomDoc==hmInt.get(strTempo)){
+//				stringNomDoc= strTempo;
+//			}
+//			
+//		}
+		
+		String stringNomDoc = hmw.lookInt(nomDoc);
+		System.out.println("lol" + stringNomDoc);
+		
+		denom = hmwDouble.lookString(stringNomDoc);
 		double tempo = (double) listeRequete.size();
 		if(denom!=0.0){
-			score=num/(Math.sqrt(denom) * tempo);
+			score=num/(denom * Math.sqrt(tempo));
 		}else {
 			score=0.0;
 		}
@@ -245,7 +265,8 @@ public class GestionRequete {
 	 * @param root 
 	 * @return : la map non triée contenant tous les documents associée à la requete et leur score associé.
 	 */
-	public static HashMap<Integer, Double> CalculAllScore(String req,  IndexWrapper root){
+	public static HashMap<Integer, Double> CalculAllScore(String req,  IndexWrapper root, HashMapWrapDouble hmwDouble,
+			HashMapWrapper hmw){
 		
 		//contient tous les documents contenant au moins un mots de la requete
 		Set<Integer> listeAllDocReq = new HashSet<Integer>();
@@ -271,7 +292,7 @@ public class GestionRequete {
 		while(i.hasNext()){
 			Integer nomDoc = i.next();
 			double score =0.0;
-			score =calculScoreDoc(req, nomDoc, root);
+			score =calculScoreDoc(req, nomDoc, root, hmwDouble, hmw);
 			HM.put(nomDoc, score);			
 		}
 		

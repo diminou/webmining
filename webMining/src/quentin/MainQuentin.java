@@ -33,8 +33,8 @@ public class MainQuentin {
 //		hm.put("b", 12.0);
 //		System.out.println(GestionRequete.classerDocument(hm));
 		
-//		Fenetre f = new Fenetre();
-			
+		Fenetre f = new Fenetre();
+//			
 //		HashMap<String, Integer> hm = TravailFichier.createIndexNumberDocs("./corpus/");
 //		HashMapWrapper hmw = new HashMapWrapper();
 //		
@@ -51,25 +51,30 @@ public class MainQuentin {
 //		}
 //		
 //		System.out.println(hmw.toString());
+//		
+//		System.out.println((hmw.lookInt(4)));
+//		
+//		
+//		HashMap<String, Double> hm = TravailFichier.createIndexDocs("./corpus/").getMapDocs();
+//
+//		HashMapWrapDouble hmw = new HashMapWrapDouble();
+//		
+//		
+//	//		hmw.setHM(hm);
+//	//		
+//	//		hmw.serializeHM();
+//		try {
+//			hmw.deserializeHM();
+//			
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println(hmw.toString());
+//		
+//		System.out.println(hmw.lookString("./corpus/texte.95-1.txt"));
 		
-		
-		HashMap<String, Double> hm = TravailFichier.createIndexDocs("./corpus/").getMapDocs();
-
-		HashMapWrapDouble hmw = new HashMapWrapDouble();
-		
-		
-	//		hmw.setHM(hm);
-	//		
-	//		hmw.serializeHM();
-		try {
-			hmw.deserializeHM();
-			
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println(hmw.toString());
 	}
 
 }	
