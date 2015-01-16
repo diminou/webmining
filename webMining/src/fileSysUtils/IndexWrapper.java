@@ -42,6 +42,12 @@ public class IndexWrapper {
 			root = root.root();
 		}
 	}
+	
+	public void delete(String label){
+		if(root != null){
+			root.delete(label);
+		}
+	}
 
 	public DataValue lookup(String label) {
 		if (root != null) {
