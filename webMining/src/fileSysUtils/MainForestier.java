@@ -104,7 +104,7 @@ public class MainForestier {
 		Fenetre fenetre = new Fenetre();
 		TravailFichier.createIndexStemming("./corpus/", index);
 		MainForestier.hmw.setHM(TravailFichier.createIndexNumberDocs("./corpus/"));
-		MainForestier.hmwd.setHM(TravailFichier.createIndexDocs("./corpus").getMapDocs());
+		MainForestier.hmwd.setHM(TravailFichier.createIndexDocs("./corpus/").getMapDocs());
 		
 		index.serializeRoot();
 		hmw.serializeHM();
