@@ -20,6 +20,7 @@ import benoit.TravailFichier;
 import tools.FrenchStemmer;
 import fileSysUtils.DataValue;
 import fileSysUtils.IndexWrapper;
+import fileSysUtils.MainForestier;
 import fileSysUtils.TreeRepresentation;
 
 
@@ -199,7 +200,9 @@ public class GestionRequete {
 		double num=0.0;
 		double denom = 0.0;
 		List<Double> listeOccurence = new ArrayList<Double>();
-		
+		root = MainForestier.index;
+		hmwDouble = MainForestier.hmwd;
+		hmw = MainForestier.hmw;
 		// On parcourt l'ensemble des mots de la requête
 		for(String s :listeRequete){
 			DataValue DV = root.lookup(s);
@@ -284,8 +287,8 @@ public class GestionRequete {
 		}
 	
 		for(String s : listeRequete){
-			if(root.lookup(s)!=null){
-				Set<Integer> listeDocReq = root.lookup(s).getSetFileNames();
+			if(MainForestier.index.lookup(s)!=null){
+				Set<Integer> listeDocReq = MainForestier.index.lookup(s).getSetFileNames();
 				listeAllDocReq.addAll(listeDocReq);
 			}
 		}
@@ -296,7 +299,7 @@ public class GestionRequete {
 		while(i.hasNext()){
 			Integer nomDoc = i.next();
 			double score =0.0;
-			score =calculScoreDoc(req, nomDoc, root, hmwDouble, hmw);
+			score =calculScoreDoc(req, nomDoc, MainForestier.index, MainForestier.hmwd, MainForestier.hmw);
 			HM.put(nomDoc, score);			
 		}
 		

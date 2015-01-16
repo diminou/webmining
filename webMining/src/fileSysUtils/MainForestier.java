@@ -19,10 +19,10 @@ import benoit.TravailFichier;
 
 public class MainForestier {
 
-	static IndexWrapper index = new IndexWrapper();
-	static HashMapWrapper hmw = new HashMapWrapper();
-	static HashMapWrapDouble hmwd = new HashMapWrapDouble();
-	static BackgroundUpdater bu1 = new BackgroundUpdater();
+	public static IndexWrapper index = new IndexWrapper();
+	public static HashMapWrapper hmw = new HashMapWrapper();
+	public static HashMapWrapDouble hmwd = new HashMapWrapDouble();
+	public static BackgroundUpdater bu1 = new BackgroundUpdater();
 
 	public static void main(String[] args) throws IOException {
 		

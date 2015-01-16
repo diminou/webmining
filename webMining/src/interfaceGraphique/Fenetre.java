@@ -33,6 +33,7 @@ import benoit.HashMapWrapDouble;
 import benoit.HashMapWrapper;
 import benoit.TravailFichier;
 import fileSysUtils.IndexWrapper;
+import fileSysUtils.MainForestier;
 import quentin.GestionRequete;
 
 public class Fenetre extends JFrame {
@@ -44,9 +45,13 @@ public class Fenetre extends JFrame {
 	private JPanel container = new JPanel();
 	private JPanel resultatContainer = new JPanel();
 
-	final static IndexWrapper index = new IndexWrapper();
+	/*final static IndexWrapper index = new IndexWrapper();
 	final static HashMapWrapper hmw = new HashMapWrapper();
-	final static HashMapWrapDouble hmwDouble = new HashMapWrapDouble();
+	final static HashMapWrapDouble hmwDouble = new HashMapWrapDouble();*/
+	
+	static IndexWrapper index = MainForestier.index;
+	static HashMapWrapper hmw = MainForestier.hmw;
+	static HashMapWrapDouble hmwDouble = MainForestier.hmwd;
 	public Fenetre() {
 
 		Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit()
@@ -117,17 +122,19 @@ public class Fenetre extends JFrame {
 			  
 		    	
 				try {
-					TravailFichier.createIndexStemming("./corpus/",index);
+					TravailFichier.createIndexStemming("./corpus/",MainForestier.index);
 					index.serializeRoot();
 					
 					
-					HashMap<String, Integer> hm = TravailFichier.createIndexNumberDocs("./corpus/");
+					/*HashMap<String, Integer> hm = TravailFichier.createIndexNumberDocs("./corpus/");
 					hmw.setHM(hm);
 					hmw.serializeHM();
 					
 					HashMap<String, Double> hmDouble = TravailFichier.createIndexDocs("./corpus/").getMapDocs();
 					hmwDouble.setHM(hmDouble);
-					hmw.serializeHM();
+					hmw.serializeHM();*/
+					
+					
 					
 					
 					
