@@ -1,5 +1,7 @@
 package fileSysUtils;
 
+import interfaceGraphique.Fenetre;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
@@ -22,9 +24,9 @@ public class MainForestier {
 	static HashMapWrapDouble hmwd = new HashMapWrapDouble();
 	static BackgroundUpdater bu1 = new BackgroundUpdater();
 
-	/*public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException {
 		
-		//BackgroundUpdater bu = new BackgroundUpdater();
+		
 		
 		
 		
@@ -48,7 +50,7 @@ public class MainForestier {
 		
 		
 		
-		private String label;
+		/*private String label;
 		private int nbFiles;
 		private Set<String> setFileNames;
 		private StatMot stats;
@@ -95,16 +97,18 @@ public class MainForestier {
 		System.out.println(testDv.getLabel());
 		
 		index.serializeRoot();
-		System.out.println("serialize");
+		System.out.println("serialize");*/
 		
 		
 		
-		
+		Fenetre fenetre = new Fenetre();
 		TravailFichier.createIndexStemming("./corpus/", index);
-		index.serializeRoot();
+		MainForestier.hmw.setHM(TravailFichier.createIndexNumberDocs("./corpus/"));
+		MainForestier.hmwd.setHM(TravailFichier.createIndexDocs("./corpus").getMapDocs());
 		
-		TravailFichier.createIndexStemming("./corpus/", index);
 		index.serializeRoot();
+		hmw.serializeHM();
+		hmwd.serializeHM();
 		
 		
 		try {
@@ -118,33 +122,8 @@ public class MainForestier {
 		System.out.println(index.toString());
 		System.out.println(index.lookup("lienne").getSetFileNames().toString());
 		System.out.println(index.lookup("lienne").getStats().toString());
-		ObjectMapper mapper = new ObjectMapper();
-	 
-		try {
-	 
-			JsonNode node = mapper.valueToTree(index);
-			
-			// convert user object to json string, and save to a file
-			//mapper.writeTree(new File("./index/test.json"), node);
-			//mapper.writeTree(new JsonGenerator, indexNode);
-	 
-			// display to console
-			System.out.println(mapper.writeValueAsString(index));
-	 
-		} catch (JsonGenerationException e) {
-	 
-			e.printStackTrace();
-	 
-		} catch (JsonMappingException e) {
-	 
-			e.printStackTrace();
-	 
-		} catch (IOException e) {
-	 
-			e.printStackTrace();
-	 
-		}
+		
 
-	}*/
+	}
 
 }
