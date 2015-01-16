@@ -82,9 +82,19 @@ public class MainForestier {
 		
 		
 		Fenetre fenetre = new Fenetre();
-		TravailFichier.createIndexStemming("./corpus/", index);
-		MainForestier.hmw.setHM(TravailFichier.createIndexNumberDocs("./corpus/"));
-		MainForestier.hmwd.setHM(TravailFichier.createIndexDocs("./corpus/").getMapDocs());
+		try {
+			index.deserializeRoot();
+			hmw.deserializeHM();
+			hmwd.deserializeHM();
+		} catch (Exception e) {
+			System.err.println("pas d'index serialise ");
+			e.printStackTrace();
+			TravailFichier.createIndexStemming("./corpus/", index);
+			MainForestier.hmw.setHM(TravailFichier.createIndexNumberDocs("./corpus/"));
+			MainForestier.hmwd.setHM(TravailFichier.createIndexDocs("./corpus/").getMapDocs());
+		}
+		
+		
 		
 		index.serializeRoot();
 		hmw.serializeHM();

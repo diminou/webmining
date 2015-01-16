@@ -23,12 +23,6 @@ public class HashMapWrapper {
 
 	public HashMapWrapper() {
 		super();
-		try {
-			this.deserializeHM();
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
 		
 	}
 	

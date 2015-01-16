@@ -15,11 +15,6 @@ public class HashMapWrapDouble {
 
 		public HashMapWrapDouble() {
 			super();
-			try {
-				this.deserializeHM();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 
 		
