@@ -196,7 +196,8 @@ public class Fenetre extends JFrame {
 //			}
 //			hmw.deserializeHM();
 			
-			HashMap<Integer, Double> HM = GestionRequete.CalculAllScore(textChamp, index, hmwDouble, hmw);
+			HashMap<Integer, Double> HM = GestionRequete.CalculAllScore(textChamp, MainForestier.index,
+					MainForestier.hmwd, MainForestier.hmw);
 //			HashMap<String, Double> HM = new HashMap<String, Double>();
 //			HM.put("trois", 3.0);
 //			HM.put("deux", 2.0);

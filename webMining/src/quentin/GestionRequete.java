@@ -205,7 +205,7 @@ public class GestionRequete {
 		hmw = MainForestier.hmw;
 		// On parcourt l'ensemble des mots de la requête
 		for(String s :listeRequete){
-			DataValue DV = root.lookup(s);
+			DataValue DV = MainForestier.index.lookup(s);
 			
 			if(DV != null){
 				Set<Integer> setDoc = DV.getSetFileNames();					//set des documents contenant le mot s
@@ -251,10 +251,10 @@ public class GestionRequete {
 //			
 //		}
 		
-		String stringNomDoc = hmw.lookInt(nomDoc);
+		String stringNomDoc = MainForestier.hmw.lookInt(nomDoc);
 		System.out.println("lol" + stringNomDoc);
 		
-		denom = hmwDouble.lookString(stringNomDoc);
+		denom = MainForestier.hmwd.lookString(stringNomDoc);
 		double tempo = (double) listeRequete.size();
 		if(denom!=0.0){
 			score=num/(denom * Math.sqrt(tempo));
