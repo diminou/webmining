@@ -204,16 +204,20 @@ public class GestionRequete {
 		for(String s :listeRequete){
 			DataValue DV = root.lookup(s);
 			
-			Set<Integer> setDoc = DV.getSetFileNames();					//set des documents contenant le mot s
-			HashMap<Integer,Integer> mapTf = DV.getStats().getMapTf();   //map des TF
-			
-			// On parcourt l'ensemble des documents d'appartenance du mot de la requête à la recherche du doc d'entrée			
-			if (setDoc.contains(nomDoc)){
-				double di =0.0;
-				di= calculOccurence(nomDoc, mapTf);
-				listeOccurence.add(di);
+			if(DV != null){
+				Set<Integer> setDoc = DV.getSetFileNames();					//set des documents contenant le mot s
+				HashMap<Integer,Integer> mapTf = DV.getStats().getMapTf();   //map des TF
 				
+				// On parcourt l'ensemble des documents d'appartenance du mot de la requête à la recherche du doc d'entrée			
+				if (setDoc.contains(nomDoc)){
+					double di =0.0;
+					di= calculOccurence(nomDoc, mapTf);
+					listeOccurence.add(di);
+					
+				}
 			}
+			
+			
 			
 			//TODO à suppr
 //			Iterator<String> iter = setDoc.iterator();

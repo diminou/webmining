@@ -30,26 +30,6 @@ public class MainForestier {
 		
 		
 		
-		index.insert("naturisme", null);
-		
-		index.insert("boloss", null);
-		
-		index.insert("xenophobe", null);
-		
-		index.insert("excellent", null);
-		
-		index.insert("ablation", null);
-		
-		index.insert("acne", null);
-		
-		index.insert("aperitif", null);
-		
-		index.insert("apx", null);
-		
-		index.insert("apx", null);
-		
-		
-		
 		/*private String label;
 		private int nbFiles;
 		private Set<String> setFileNames;
@@ -109,6 +89,13 @@ public class MainForestier {
 		index.serializeRoot();
 		hmw.serializeHM();
 		hmwd.serializeHM();
+		
+		/*double beginTime = System.currentTimeMillis();
+		for(int i = 0; i<10000; i++){
+			index.lookup("argentine");
+		}
+		double endTime = System.currentTimeMillis();
+		System.out.println(endTime - beginTime);*/
 		
 		
 		
