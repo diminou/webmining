@@ -111,17 +111,6 @@ public class MainForestier {
 		hmwd.serializeHM();
 		
 		
-		try {
-			index.deserializeRoot();
-			System.out.println("deserialize");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println(index.toString());
-		System.out.println(index.lookup("lienne").getSetFileNames().toString());
-		System.out.println(index.lookup("lienne").getStats().toString());
 		
 
 	}

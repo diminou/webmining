@@ -27,8 +27,12 @@ public class HashMapWrapDouble {
 			hm = hashmap;
 		}
 
-		public double lookString(String s) {
-			return (hm.get(s));
+		public Double lookString(String s) {
+			if (hm!= null) {
+				return (Double)(hm.get(s));
+			} else {
+				return null;
+			}
 		}
 
 //		public String lookInt(int integ) {

@@ -38,8 +38,12 @@ public class HashMapWrapper {
 		hm = hashmap;
 	}
 
-	public int lookString(String s) {
-		return hm.get(s);
+	public Integer lookString(String s) {
+		if(hm != null){
+			return (Integer) hm.get(s);
+		} else {
+			return null;
+		}
 	}
 
 	public String lookInt(int integ) {
