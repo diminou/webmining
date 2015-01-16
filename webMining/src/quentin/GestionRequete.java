@@ -200,9 +200,9 @@ public class GestionRequete {
 		double num=0.0;
 		double denom = 0.0;
 		List<Double> listeOccurence = new ArrayList<Double>();
-		root = MainForestier.index;
+		/*root = MainForestier.index;
 		hmwDouble = MainForestier.hmwd;
-		hmw = MainForestier.hmw;
+		hmw = MainForestier.hmw;*/
 		// On parcourt l'ensemble des mots de la requête
 		for(String s :listeRequete){
 			DataValue DV = MainForestier.index.lookup(s);

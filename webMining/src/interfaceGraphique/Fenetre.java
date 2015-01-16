@@ -123,16 +123,16 @@ public class Fenetre extends JFrame {
 		    	
 				try {
 					TravailFichier.createIndexStemming("./corpus/",MainForestier.index);
-					index.serializeRoot();
+					MainForestier.index.serializeRoot();
 					
 					
-					/*HashMap<String, Integer> hm = TravailFichier.createIndexNumberDocs("./corpus/");
-					hmw.setHM(hm);
-					hmw.serializeHM();
+					HashMap<String, Integer> hm = TravailFichier.createIndexNumberDocs("./corpus/");
+					MainForestier.hmw.setHM(hm);
+					MainForestier.hmw.serializeHM();
 					
 					HashMap<String, Double> hmDouble = TravailFichier.createIndexDocs("./corpus/").getMapDocs();
-					hmwDouble.setHM(hmDouble);
-					hmw.serializeHM();*/
+					MainForestier.hmwd.setHM(hmDouble);
+					MainForestier.hmwd.serializeHM();
 					
 					
 					
