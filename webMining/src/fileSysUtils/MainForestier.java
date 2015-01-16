@@ -10,13 +10,18 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import benoit.HashMapWrapDouble;
+import benoit.HashMapWrapper;
 import benoit.StatMot;
 import benoit.TravailFichier;
 
 public class MainForestier {
 
 	static IndexWrapper index = new IndexWrapper();
+	static HashMapWrapper hmw = new HashMapWrapper();
+	static HashMapWrapDouble hmwd = new HashMapWrapDouble();
 	static BackgroundUpdater bu1 = new BackgroundUpdater();
+
 	/*public static void main(String[] args) throws IOException {
 		
 		//BackgroundUpdater bu = new BackgroundUpdater();
